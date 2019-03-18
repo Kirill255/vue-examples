@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Привязка к элементам Radio buttons</title>
+    <link href="../TWbootstrap%204.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+      <script type="text/javascript">
+          window.onload = function () {
+
+        var sample = new Vue({
+            el: '#app',
+            data: {
+                searchElem: ''
+            }
+        });
+          }
+    </script>
+    <style>
+        p {padding-left:20px;}
+        span {
+            color:#ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+       
+        <p>Пример, показывающий работу привязки в элементе <code>input</code> с типом <code>radio</code>.
+        </p>
+
+        <div id="app">
+            <label class="form-check-label">
+                <input type="radio" value="Футбол" v-model="searchElem">
+                Футбол
+            </label>
+            <br />
+            <label class="form-check-label">
+                <input type="radio" value="Хоккей" v-model="searchElem">
+                Хоккей
+            </label>
+            <br />
+             <label class="form-check-label">
+                <input type="radio" value="Курсы" v-model="searchElem">
+                Курсы
+            </label>
+            <p class="text-muted">Сегодня с друзьями мы пойдём на <span>{{ searchElem }}</span></p>
+        </div>
+    </div>
+
+   
+  
+</body>
+</html>

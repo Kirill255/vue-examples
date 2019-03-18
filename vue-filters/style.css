@@ -1,0 +1,28 @@
+/* https://github.com/GitHubTochkaDev/vuejs-tutorials/blob/lesson5/style.css */
+
+textarea, #emoji, #markdown {
+    
+    padding: 20px;
+    width: 49%;
+    height: 100px;
+    box-sizing: border-box;
+
+    display: inline-block;
+
+    vertical-align: top;
+}
+
+textarea {
+    font-size: 16px;
+    font-family: "Monaco", courier, monospace;
+
+    background-color: #f6f6f6;
+    border: none;
+    border-right: 1px solid #ccc;
+    outline: none;
+    resize: none;
+}
+
+#emoji, #markdown {
+    font-size: 22px;
+}

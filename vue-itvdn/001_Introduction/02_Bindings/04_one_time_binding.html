@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>v-once привязка</title>
+    <script src="../../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var sample = new Vue({
+                el: '#appl',
+                data: {
+                    city: "Kiev"
+                }
+            });
+        }
+    </script>
+
+</head>
+
+<body>
+    <!--v-once директива сообщает Vue, что необходимо отобразить элемент, в котором он размещен - только один раз.
+      Эта директива информирует виртуальную DOM о пропуске элемента во время этапа обновления жизненного цикла.
+      Любой дочерний элемент - будет отображаться только один раз.
+      Когда виртуальный DOM видит директиву once, он предполагает, что остальная часть ветки также должна отображаться только один раз.-->
+    <p>Пример однократной привязки</p>
+
+
+    <div id="appl">
+        <p v-once="city"></p>
+    </div>
+    <script type="text/javascript">
+
+        //var sample = new Vue({
+        //    el: '#appl',
+        //    data: {
+        //        city: "Kiev"
+        //    }
+        //});
+
+    </script>
+
+</body>
+</html>

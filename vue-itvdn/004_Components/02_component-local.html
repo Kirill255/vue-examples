@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue component locally</title>
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <br />
+        <div id="app" class="col-3 offset-1">
+            <!--Экземпляр компонента new-item -->
+            <my-component></my-component>
+        </div>
+        <script>
+            //Создание нового компонента VUE локально
+            var child = {
+                template: '<div class="table-bordered">Пользовательский компонент!</div>'
+            }
+            var sample = new Vue({
+                el: "#app",
+                //Свойство экземпляра Vue, содержащее объект всех компонентов
+                components: {
+                    // <my-component> будет доступен только в шаблоне родителя
+                    'my-component': child
+                }
+
+            })
+        </script>
+    </div>
+</body>
+</html>

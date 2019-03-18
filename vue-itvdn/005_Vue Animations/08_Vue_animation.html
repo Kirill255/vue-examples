@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Vue анимации</title>
+	<meta charset="utf-8" />
+<style>
+    .v-enter-active {
+  animation: v-in 0.5s;
+}
+.v-leave-active {
+  animation: v-in 1.5s reverse;
+}
+@keyframes v-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+</style>
+</head>
+<body>
+    <div id="app" class="container">
+        <br />
+        <button @click="show = !show">Переключить отображение</button>
+        <transition name="v">
+            <p v-if="show">Любой текст в теле параграфа. Для определения анимации используйте  в классе CSS свойство <code>animation</code>.</p>
+        </transition>
+    </div>
+    <script src="../vue.js"></script>
+    <script>
+       var sample= new Vue({
+  el: '#app',
+  data: {
+    show: true
+  }
+})
+    </script>
+</body>
+</html>

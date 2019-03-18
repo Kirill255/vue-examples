@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Именование переменных</title>
+    <script src="../../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var sample = new Vue({
+                el: '#appl',
+                data: {
+                    value1: "Name",
+                    Value1: "Age",
+                    $value: "$Error",
+                    //Ошибка, нельзя начинать называть переменную во Vue.js с $ или _ 
+                    _value: "_Error_"
+                    //Ошибка, нельзя начинать называть переменную во Vue.js с $ или _ 
+
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div id="appl">
+        <h1>{{value1}}</h1>
+        <h1>{{Value1}}</h1>
+        <!--<h1>{{$value}}</h1>
+        <h1>{{_value1}}</h1>-->
+    </div>
+</body>
+</html>

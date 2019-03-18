@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Функция sort</title>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var sample = new Vue({
+                el: '#app',
+                data: {
+                    auto: [
+                        'Toyota',
+                        'Honda',
+                        'Volvo',
+                        'Siat',
+                        'BMV'
+                    ]
+                },
+                methods: {
+                    sortClick: function () {
+                        this.auto.sort();
+                    }
+                }
+            });
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="container">
+        <br />
+        <p>Пример, показывающий использование функции <code>sort</code> в массиве строк.</p>
+        <div id="app">
+            <form>
+                <ul class="list-unstyled">
+                    <li><strong>Автомобили</strong></li>
+                    <li v-for="mark in auto">{{ mark }}</li>
+                </ul>
+                <button type="button" v-on:click="sortClick">Сортировать</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

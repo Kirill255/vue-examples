@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Привязка к стилям CSS</title>
+    <script src="../../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var growler = new Vue({
+                el: '#appl',
+                data: {
+                    name: 'Alex',
+                    colorData: "orange",
+                    marginData: "10px",
+                    fontData: "16px",
+                    firstStyle: {
+                        color: 'blue',
+                        fontFamily: 'Verdana',
+                        textAlign: 'center',
+                        border: '2px solid red'
+                    },
+                    secondStyle: {
+                        color: "green",
+                        textAlign: 'right',
+                        fontSize: '25px'
+                    }
+
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <p>Пример, показывающий работу привязки для стилей CSS</p>
+
+    <div id="appl">
+        <!--Определение значения цвета элемента через привязку стиля-->
+        <h2 v-text="name" v-bind:style="{color:colorData}"></h2>
+
+        <h2 v-text="name" v-bind:style="{
+            color:colorData,
+            fontSize:fontData,
+            margin:marginData}"></h2>
+
+        <!--Получение свойств CSS через объект JS-->
+        <h2 v-text="name" v-bind:style="firstStyle"></h2>
+        <!--Получение свойств CSS через массив JS-->
+        <p v-text="name" v-bind:style="[firstStyle, secondStyle]"></p>
+
+        <!--Использование сокращенного варианта привязки-->
+        <!--<h2 v-text="name" :style="accentStyle"></h2>-->
+
+        <!--Ошибка! Нужно использовать привязку v-bind для аттрибутов, а также убирать {{}} в значениях-->
+        <!--         <h2 v-text="name" style="{{accentStyle}}"></h2>-->
+
+    </div>
+
+</body>
+</html>

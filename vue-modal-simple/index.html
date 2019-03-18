@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <!-- https://github.com/freearhey/vue2-filters -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue2-filters/dist/vue2-filters.min.js"></script> -->
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+    <div id="app">
+
+        <v-dialog btn-text="Согласен">Вопрос 1</v-dialog>
+        <v-dialog btn-text="Хорошо">Вопрос 2</v-dialog>
+
+    </div>
+
+    <template id="dialog-template">
+        <div>
+            <div class="Dialog" v-show="active">
+                <div class="Dialog__overlay" @click="close()"></div>
+                <div class="Dialog__content">
+                    <div class="Dialog__body">
+                        <slot></slot>
+                    </div>
+                    <div class="Dialog__footer">
+                        <button class="btn" @click="onCancel()">Отмена</button>
+                        <button class="btn btn-ok" @click="onConfirm()">{{ btnText }}</button>
+                    </div>
+                </div>
+            </div>
+
+            <a class="link" href="#" @click="open()">ссылка</a>
+        </div>
+    </template>
+
+
+
+</body>
+
+<script>
+
+
+    Vue.component('v-dialog', {
+        template: '#dialog-template',
+        data: function () {
+            return {
+                active: false
+            }
+        },
+        props: ['btnText'],
+        methods: {
+            open: function () {
+                this.active = true;
+            },
+            close: function () {
+                this.active = false;
+            },
+            onCancel: function () {
+                this.close();
+            },
+            onConfirm: function () {
+                this.close();
+            }
+        }
+    });
+
+    new Vue({
+        el: "#app"
+    });
+
+</script>
+
+</html>

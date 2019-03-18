@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue параметры</title>
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+    </style>
+</head>
+<body>
+    <div class="container">
+        <br />
+        <div id="app">
+            <!-- В компоненте явно определяем входной параметр и отображаем пользователю -->
+            <first message="Hello world"></first>
+            <br />
+            <!-- Использование имени атрибутов - переводиться в kebab-case(через дефис) -->
+            <second my-message="Hello world again"></second>
+
+        </div>
+        <script>
+            Vue.component('first', {
+                // Свойство props - содержит все пользовательские атрибуты для передачи информации из родительского компонента
+                props: ['message'],
+                //Входной параметр можно использовать внутри шаблонов.
+                template: '<span>{{ message }}</span>'
+            })
+            Vue.component("second", {
+                props: ['myMessage'],
+                template: '<span>{{ myMessage }}</span>'
+
+            })
+            var sample = new Vue({
+                el: '#app',
+            })
+        </script>
+    </div>
+</body>
+</html>

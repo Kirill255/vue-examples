@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Отсутствие привязки данных</title>
+    <script src="../../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+
+            var sample = new Vue({
+                el: '#appl',
+                data: {
+                    city: "Kiev"
+                }
+            });
+        }
+    </script>
+
+</head>
+
+<body>
+    <p>Отсутствие данных</p>
+
+    <div id="appl">
+        <p>{{city}}</p>
+        <p>{{river}}</p>
+    </div>
+
+</body>
+</html>

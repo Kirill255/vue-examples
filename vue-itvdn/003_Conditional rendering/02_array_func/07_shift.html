@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>shift метод</title>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var sample = new Vue({
+                el: '#app',
+                data: {
+                    auto: [
+                     'Toyota',
+                  'Honda',
+                  'Volvo',
+                  'Siat',
+                  'BMV'
+                    ],
+                    newAuto: '',
+                },
+                methods: {
+                    unshiftClick: function (e) {
+                        if (this.newAuto == '') {
+                            e.preventDefault();
+                            alert('Введите значение')
+                        }
+                        else {
+                            this.count = this.auto.unshift(this.newAuto);
+                            this.newAuto = '';
+                        }
+                    },
+                    shiftClick: function () {
+                        //Возвращает первый удалённый элемент элемент
+                        var shifted = this.auto.shift();
+                        console.log(shifted)
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+
+        <p>Пример, показывающий использование метода <code>shift</code> в массиве.</p>
+
+        <div id="app">
+            <form>
+                <ul class="list-unstyled">
+                    <li><strong>Все авто: {{ auto.length }}</strong></li>
+                    <li v-for="i in auto">{{ i }}</li>
+                </ul>
+
+                <input type="text" class="form-control" v-model="newAuto" placeholder="Введите новую модель автомобиля" />
+                <ul class="list-inline">
+                    <br />
+                    <li class="list-inline-item"><button type="button" class="btn btn-primary" v-on:click="unshiftClick">Добавить в начало</button></li>
+                    <li class="list-inline-item"><button type="button" class="btn btn-secondary" v-on:click="shiftClick">Удалить первый автомобиль</button></li>
+                    </li>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

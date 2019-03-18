@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head><title>Модификаторы нажатия клавиш</title></head>
+<link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+<script src="../vue.js"></script>
+<script type="text/javascript">
+    window.onload = function () {
+        var sample = new Vue({
+            el: '#app',
+            data: {
+                search: '',
+                history: ''
+            },
+            methods: {
+                // Название кнопки можно узнать через свойство key. Ключевой номер - keyCode, аналогично JS.
+                evaluateKey: function (e) {
+                    var code = e.keyCode;
+                   
+                    this.history += 'Нажата кнопка: "' + e.key + '" (' + code + ')\n';
+                },
+                executeSearch: function (e) {
+                    if (this.search) {
+                        this.history += 'Кнопка поиска была нажата. Запрос "' + this.search + '".\n';
+                    }
+                },
+                clearHistory: function () {
+                    this.history = '';
+                }
+            }
+        });
+    }
+</script>
+<body>
+    <div class="container">
+        <br />
+        <div id="app">
+            <form class="form-horizontal" v-on:submit.prevent>
+                <p>
+                    Пример, показывающий обработку события, на нажатие кнопки.
+                </p>
+
+                <div class="input-group">
+                    <input class="form-control" type="search" v-model="search" v-on:keyup="evaluateKey" v-on:keyup.enter="executeSearch" autofocus />
+                    <button type="button" v-on:click="executeSearch" class="btn btn-primary">Поиск</button>
+                </div>
+
+                <br />
+                <div class="form-group">
+                    <label for="logTextarea">Журнал событий (<a href="#" v-on:click="clearHistory">Очистить</a>)</label>
+                    <textarea class="form-control" v-model="history" rows="15"></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue component data</title>
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        p {
+            width: 20px;
+            padding: 2px;
+            text-align: center;
+            border: 1px solid green;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <br />
+        <div id="app">
+            <my-component></my-component>
+            <my-component></my-component>
+            <my-component></my-component>
+        </div>
+        <script>
+            var data = { count: 0 }
+            Vue.component('my-component', {
+                //Каждый компонент может иметь свойство data, аналогично экземпляру Vue
+                //Свойство Data должна быть функцией и возвращать определенное значение
+                template: '<button class="btn btn-active" v-on:click="count+=1">{{count}}</button>',
+                data: function () { return { count: 0 } }
+                //template: '<button class="btn btn-active" v-on:click="push">{{message}}</button>',
+                //data: {
+                //    message: "Hello World!"
+                //}
+
+
+            })
+            var sample = new Vue({
+                el: '#app'
+            })
+        </script>
+    </div>
+</body>
+</html>

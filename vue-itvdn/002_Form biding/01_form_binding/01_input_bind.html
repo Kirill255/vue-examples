@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Привязка к элементам input</title>
+    <link href="../../TWbootstrap%204.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script>
+        window.onload = function () {
+
+            var sample = new Vue({
+                el: '#app',
+                data: {
+                    search: ''
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <p>
+            Пример, показывающий простое поведение привязки, используя <code>input</code> событие.
+        </p>
+
+        <div id="app">
+            <input type="text" v-model="search" placeholder="Поиск...">
+            <br />
+            <div>Что мы ищем: {{ search }}</div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Velocity.js</title>
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <br />
+        <p>Пример анимации элементов списка с помощью библиотеки Velocity.js</p>
+        <div id="app">
+            <input v-model="query" class="input-group" placeholder="Выберите нужную страну">
+            <br />
+            <transition-group name="fade"
+                              tag="ul"
+                              v-bind:css="false"
+                              v-on:before-enter="beforeEnter"
+                              v-on:enter="enter"
+                              v-on:leave="leave">
+                <li v-for="(item, index) in computedList"
+                    v-bind:key="item.msg">{{ item.msg }}</li>
+            </transition-group>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+    <script>
+        var sample = new Vue({
+            el: '#app',
+            data: {
+                query: '',
+                list: [
+                  { msg: 'Австрия' },
+                  { msg: 'Бельгия' },
+                  { msg: 'Великобритания' },
+                  { msg: 'Германия' },
+                  { msg: 'Ирландия' },
+                  { msg: 'Лихтенштейн' },
+                  { msg: 'Люксембург' },
+                  { msg: 'Монако' },
+                  { msg: 'Нидерланды' },
+                  { msg: 'Франция' },
+                  { msg: 'Швейцария' },
+                  { msg: 'Белоруссия' },
+                  { msg: 'Болгария' },
+                  { msg: 'Венгрия' },
+                  { msg: 'Молдавия' },
+                  { msg: 'Польша' },
+                  { msg: 'Россия' },
+                  { msg: 'Румыния' },
+                  { msg: 'Словакия' },
+                  { msg: 'Чехия' },
+                  { msg: 'Украина' },
+                  { msg: 'Дания' },
+                  { msg: 'Исландия' },
+                  { msg: 'Латвия' },
+                  { msg: 'Литва' },
+                  { msg: 'Норвегия' },
+                  { msg: 'Финляндия' },
+                ]
+            },
+            computed: {
+                computedList: function () {
+                    var vm = this
+                    return this.list.filter(function (item) {
+                        return item.msg.toLowerCase().indexOf(vm.query.toLowerCase()) !== -1
+                    })
+                }
+            },
+            methods: {
+                beforeEnter: function (el) {
+                    el.style.opacity = 0
+                    el.style.height = 0
+                },
+                enter: function (el, done) {
+                    var delay = el.dataset.index * 150
+                    setTimeout(function () {
+                        //Velocity принимает один или несколько аргументов. Первый аргумент является обязательным.
+                        // Это может быть либо имя одной из предопределенных команд (примеры следовать),
+                        // либо объект с разными свойствами CSS, которые должны быть анимированы.
+                        //  Второй аргумент, который является необязательным, также является объектом.
+                        //      Он содержит параметры анимации, такие как длительность, ослабление и задержка,
+                        //  и завершение (функция, которая выполняется после завершения анимации):
+                        Velocity(
+                          el,
+                          { opacity: 1, height: '2%' },
+                          { complete: done }
+                        )
+                    }, delay)
+                },
+                leave: function (el, done) {
+                    var delay = el.dataset.index * 150
+                    setTimeout(function () {
+                        Velocity(
+                          el,
+                          { opacity: 0, height: 0 },
+                          { complete: done }
+                        )
+                    }, delay)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

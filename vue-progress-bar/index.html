@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/vee-validate@latest"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vee-validate@2.1.0-beta.1/dist/locale/ru.js"></script> -->
+    <!-- <script src="https://nosir.github.io/cleave.js/dist/cleave.min.js"></script> -->
+    <!-- <script src="https://nosir.github.io/cleave.js/dist/cleave-phone.i18n.js"></script> -->
+
+    <script src="https://unpkg.com/vue"></script>
+
+    <style>
+.container {
+    padding: 20px 0;
+}
+
+    </style>
+</head>
+
+
+<body>
+    <!-- https://www.youtube.com/watch?v=a_0pPwoeS4E&list=PLyeqauxei6jd4mL4E9860HnO5GYayooR-&index=4 -->
+    <!-- числа генерируются абсолютно случайно и никак не привязаны к прогрессу, они просто генерятся случайным образом, единственное что приязанно к бару это общее кол-во чисел -->
+
+    <div class="container" id="infoUser">
+
+        <progress-bar :val="numbers.length" :max="maxValue"></progress-bar>
+
+        <button type="button" class="btn btn-success" @click="addNumber" :disabled="done">Add</button>
+        <button type="button" class="btn btn-danger" @click="reset" :disabled="!done">Reset</button>
+        <ul class="list-group">
+            <li class="list-group-item" v-for="number in numbers">
+                {{ number }}
+            </li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        Vue.component("progressBar", {
+            props: ["val", "max"],
+            template: `
+                <div class="progress">
+                    <div class="progress-bar" :style="widthBar">{{ calculatedWidth }}</div>
+                </div>
+            `,
+            // computed: {
+            //     widthBar: function () {
+            //         let calculatedWidth = (this.val / this.max) * 100;
+            //         return {
+            //             width: calculatedWidth + "%"
+            //         }
+            //     }
+            // },
+            computed: {
+                calculatedWidth() {
+                    return (this.val / this.max * 100) + "%";
+                },
+                widthBar: function () {
+                    return {
+                        width: this.calculatedWidth
+                    }
+                }
+            }
+        });
+
+        var infoUser = new Vue({
+            el: '#infoUser',
+            data() {
+                return {
+                    numbers: [],
+                    maxValue: 10
+                }
+            },
+            // mounted: function () {
+            //     this.$nextTick(function () {
+
+            //     });
+            // },
+            methods: {
+                addNumber: function () {
+                    if (!this.done) {
+                        let num = Math.floor(Math.random() * 11) - 5;
+                        this.numbers.push(num);
+                    }
+                },
+                reset: function () {
+                    this.numbers.splice(0, this.numbers.length);
+                }
+            },
+            computed: {
+                done: function () {
+                    return this.numbers.length >= this.maxValue;
+                }
+            },
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>if-else директива</title>
+    <link href="../../TWbootstrap%204.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script>
+        window.onload = function () {
+            var sample = new Vue({
+                el: '#app',
+                data: {
+                    stars: ''
+                },
+              
+            });
+        }
+    </script>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <br />
+        <div id="app">
+            <form>
+                <p>Пример, показывающий применение <code>if</code>-<code>else</code> директивы.</p>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="number" style="width:inherit" min="0" v-model="stars" placeholder="Введите количество звёзд на небе"/>
+                       </div>
+                </div>
+                <div class="form-group">
+                    <label>Результаты запроса:</label>
+                    <p v-cloak>
+                        <div v-if="stars == 0">Звезд - нет</div>
+                        <div v-else-if="stars == 1">Одна звезда</div>
+                        <div v-else-if="stars <10 ">Выбрано {{ stars }} звезды </div>
+                        <div v-else="stars >10">Очень много...</div>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

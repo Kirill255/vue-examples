@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <!-- https://github.com/freearhey/vue2-filters -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue2-filters/dist/vue2-filters.min.js"></script> -->
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+    <div id="app">
+        <div>Осталось ввести {{ count }} из {{ max }} символов</div>
+        <!-- ещё можно ограничить ввод текста атрибутом :maxlength="max" -->
+        <textarea v-model="text" name="" id="" cols="30" rows="10"></textarea>
+        <div>
+            <button :disabled="canPrint" type="button">Send</button>
+        </div>
+    </div>
+
+</body>
+
+<script>
+
+
+    var demo = new Vue({
+        el: "#app",
+        data: {
+            text: "",
+            max: 30
+        },
+        computed: {
+            count() {
+                return this.max - this.text.length;
+            },
+            canPrint() {
+                return this.text.length > this.max;
+            }
+        }
+    })
+
+</script>
+
+</html>

@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Привязка к checkbox</title>
+    <link href="../TWbootstrap%204.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script type="text/javascript">
+        window, onload = function () {
+
+            var sample = new Vue({
+                el: '#app',
+                data: {
+                    isEnabled: false
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <br />
+        <p>
+            Пример, показывающий привязку к полю <code>input</code> с типом <code>Checkbox</code>
+        </p>
+
+        <div id="app">
+            <div class="form-check row">
+                <div class="col-md-1">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="checkbox" v-model="isEnabled">
+                </label>
+                    </div>
+            </div>
+          
+            <p class="text-muted">Элемент выбран: {{ isEnabled }}</p>
+        </div>
+    </div>
+
+
+
+
+</body>
+</html>

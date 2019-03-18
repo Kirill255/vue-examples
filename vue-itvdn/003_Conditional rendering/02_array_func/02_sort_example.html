@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Функция sort</title>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var sample = new Vue({
+                el: '#app',
+                data: {
+                    engine: [
+                       2.5, 11.3, 0.9, 3.6, 21.9, 11.6, 11.0, 1.3
+                    ],
+                    sortedEngine: [],
+                    selfSort: []
+                },
+                methods: {
+                    sortClick: function () {
+                        this.sortedEngine = this.engine.slice();
+                        this.sortedEngine.sort();
+                    },
+                    numericallySort: function () {
+                        this.selfSort = this.sortedEngine.slice();
+                        this.selfSort.sort(function (v1, v2) {
+                            return v1 - v2;
+                        });
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <p>Пример, показывающий использование функции <code>sort</code> в массиве чисел.</p>
+        <div id="app">
+            <form>
+                <div class="row">
+                    <div class="col-2">
+                        <ul class="list-unstyled">
+                            <li><strong>Объем двигателя</strong></li>
+                            <li v-for="elem in engine">{{ elem }}</li>
+                        </ul>
+                    </div>
+                    <div class="col-1">
+                        <!-- При нажатии на кнопку - происходит функция сортировки массива -->
+                        <button type="button" class="btn btn-secondary" v-on:click="sortClick">Сортировка</button>
+                    </div>
+                    <div class="col-2 offset-lg-1">
+                        <!-- Будет отображаться, в случае если в массиве sortedEngine присутствуют элементы-->
+                        <ul class="list-unstyled" v-if="sortedEngine.length > 0">
+                            <li><strong>Сортировка по умолчанию</strong></li>
+                            <!-- Отображение элементов массива с помощью функции sort  -->
+                            <li v-for="elem in sortedEngine">{{ elem }}</li>
+                        </ul>
+                    </div>
+                    <div class="col-1">
+                        <!-- Будет отображаться, в случае если в массиве sortedEngine присутствуют элементы-->
+                        <!-- При нажатии на кнопку - запускается собственная функция сортировки элементов массива -->
+                        <button type="button" class="btn btn-secondary" v-on:click="numericallySort" v-if="sortedEngine.length > 0">Сортировка</button>
+                    </div>
+                    <div class="col-2 offset-lg-1">
+                        <!-- Будет отображаться, в случае если в массиве selfSort присутствуют элементы-->
+                        <ul class="list-unstyled" v-if="selfSort.length > 0">
+                            <li><strong>Сортировка по числам</strong></li>
+                            <li v-for="elem in selfSort">{{ elem }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+

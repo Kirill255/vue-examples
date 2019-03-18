@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Привязка к CSS классам
+    </title>
+    <script src="../../vue.js"></script>
+
+    <style>
+        .color {
+            color: #ff6a00;
+            background-color: antiquewhite;
+        }
+
+        .size {
+            font-family: 'Verdana';
+            font-size: 18px;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <p>Пример привязки стилей с помощью классов CSS</p>
+    <div id="appl">
+        <!--Использование объкта класса-->
+        <h1 v-text="userName" v-bind:class="[userColor, userSize]"></h1>
+        <!--Использование массива с элементами класса-->
+        <h1 v-text="userName" v-bind:class="userStyles"></h1>
+
+    </div>
+    <script type="text/javascript">
+
+        var sample = new Vue({
+            el: '#appl',
+            data: {
+                userName: 'Ronaldo',
+                userColor: 'color',
+                userSize: 'size',
+                userStyles: ['color', 'size'],
+            }
+        });
+
+    </script>
+</body>
+</html>

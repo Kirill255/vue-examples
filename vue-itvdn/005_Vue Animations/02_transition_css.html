@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue animations</title>
+
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+           .slide-fade-enter-active {
+               transition: all .8s ease;
+           }
+           /*/* Анимации появления и исчезновения могут иметь */
+           /* различные продолжительности и динамику.       */
+           .slide-fade-leave-active {
+               transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+           }
+
+           .slide-fade-enter, .slide-fade-leave-to {
+               /*Свойство transform задаёт вид преобразования элемента.
+        Свойство описывается с помощью функций трансформации,
+        которые смещают элемент относительно его текущего положения на
+        странице или изменяют его первоначальные размеры и форму.*/
+               transform: translateX(100px);/*Сдвигает элемент относительно его обычного положения по оси X.*/
+               opacity: 0;
+           }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="app" class="table-bordered">
+            <br />
+            <button @click="show = !show">
+                Переключить рендеринг
+            </button>
+            <transition name="slide-fade">
+                <p v-if="show">hello</p>
+            </transition>
+        </div>
+
+        <script>
+            var sample = new Vue({
+                el: "#app",
+                data: {
+                    show: true
+                }
+            })
+        </script>
+    </div>
+</body>
+</html>

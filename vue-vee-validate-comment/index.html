@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vee-validate@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vee-validate@2.1.0-beta.1/dist/locale/ru.js"></script>
+
+
+    <style>
+textarea {
+    resize: none;
+}
+
+    </style>
+</head>
+
+
+<body>
+    <div class="container" id="app">
+        <div class="row">
+            <div class="col-md-6">
+                <h1>Комментарии</h1>
+                <div class="form-group" :class="{'has-error': !name}">
+                    <input class="form-control" type="text" placeholder="Ваше имя" name="name" v-model="name" ref="input_name" v-validate="'required'">
+                    <span v-show="errors.has('name')">{{ errors.first('name') }}</span>
+                </div>
+                <div class="form-group" :class="{'has-error': !email}">
+                    <input class="form-control" type="email" placeholder="Ваш email" name="email" v-model="email" ref="input_email" v-validate="'required|email'">
+                    <span v-show="errors.has('email')">{{ errors.first('email') }}</span>
+                </div>
+                <div class="form-group" :class="{'has-error': !comment}">
+                    <textarea class="form-control" rows="8" :placeholder='"Введите комментарий. Максимумальная длина: " + maxComment + " символ"'
+                        name="textarea" :maxlength="maxComment" v-model="comment" ref="text_comment" v-validate="'required|min:10|max:500'">
+                    </textarea>
+                    <span v-if="canEnterComment < maxComment">Осталось ввести {{canEnterComment}} символов.</span>
+                    <span v-show="errors.has('textarea')">{{ errors.first('textarea') }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <button class="form-control" @click="addComment">Добавить</button>
+            </div>
+        </div>
+
+        <br>
+
+        <div class="media" v-for="(item, index) in items" :key="item.id">
+            <div class="media-body">
+                <h4 class="media-heading">{{item.name}}</h4>
+                <p>{{item.comment}}</p>
+                <br>
+                <button href="#" @click="removeComment(index)">Удалить</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        Vue.use(VeeValidate, {
+            locale: 'ru'
+        });
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                name: '',
+                email: '',
+                comment: '',
+                maxComment: 500,
+                items: []
+            },
+            computed: {
+                canEnterComment() {
+                    return this.maxComment - this.comment.length;
+                }
+            },
+            watch: {
+                name(newValue, oldValue) {
+                    console.log(oldValue, '=>', newValue);
+                }
+            },
+            methods: {
+                addComment() {
+                    this.$validator.validate().then(result => {
+                        if (!result) {
+                            // do stuff if not valid.
+                            console.log("not valid");
+                            console.log('errors :', this.errors);
+                            return;
+                        } else {
+                            console.log("valid");
+                            this.items.push({
+                                id: Date.now() + "",
+                                name: this.name,
+                                email: this.email,
+                                comment: this.comment,
+                            });
+
+                            this.resetForm();
+                        }
+                    });
+                },
+                removeComment(index) {
+                    console.log('index :', index);
+                    this.items.splice(index, 1);
+                },
+                resetForm() {
+                    this.name = "";
+                    this.email = "";
+                    this.comment = "";
+
+                    this.$validator.reset();
+                    // https://github.com/baianat/vee-validate/issues/209
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

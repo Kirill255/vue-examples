@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <!-- https://router.vuejs.org/ru/ -->
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- https://www.youtube.com/watch?v=Hv5SM19oQ6w&list=PL5r0NkdgM0UOxb4Hl81FV5UIgexwTf8h7&index=14 -->
+
+
+    <div id="app">
+
+        <header>
+            <h1>Первое приложение!</h1>
+            <div class="header-wrapper">
+
+                <!-- используем компонент router-link для навигации -->
+                <!-- входной параметр `to` определяет URL для перехода -->
+                <!-- `<router-link>` по умолчанию отображается тегом `<a>` -->
+                <img src="http://acmelogos.com/images/logo-8.svg" alt="" class="logo">
+                <nav>
+                    <!-- https://router.vuejs.org/ru/api/#exact -->
+                    <router-link to="/" exact>Домой</router-link>
+                    <router-link to="/brands">Бренды</router-link>
+                    <router-link to="/contacts">Контакты</router-link>
+                    <router-link to="/projects">Проекты</router-link>
+                    <router-link to="/blog">Блог</router-link>
+                </nav>
+            </div>
+        </header>
+        <!-- отображаем тут компонент, для которого совпадает маршрут -->
+        <router-view></router-view>
+    </div>
+
+
+</body>
+
+<script src="posts.js"></script>
+
+<script>
+
+    const Home = {
+        template: `
+        <section class="home">
+            <h2>Дом</h2>
+        </section >
+        `
+    };
+    const Brands = {
+        template: `
+        <section class="brands">
+            <h2>Бренды</h2>
+        </section >
+        `
+    };
+    const Contacts = {
+        template: `
+        <section class="contacts">
+            <h2>Контакты</h2>
+        </section >
+        `
+    };
+    const Projects = {
+        template: `
+        <section class="projects">
+            <h2>Проекты</h2>
+        </section >
+        `
+    };
+    const Blog = {
+        template: `
+        <div class="blog">
+            <div class="blog__post" v-for="(post, index) in posts">
+                <img :src="post.image" alt="">
+                <h3>{{ post.title }}</h3>
+                <router-link :to="{ name: 'post', params: {id: index}}">Подробнее</router-link>
+            </div>
+        </div>
+        `
+    };
+    const Post = {
+        template: `
+        <div class="post" v-if="post">
+            <img :src="post.image" alt="">
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.body }}</p>
+        </div>
+        `,
+        data: function () {
+            return {
+                post: posts[this.$route.params.id]
+            }
+        }
+    };
+
+
+    const routes = [
+        { path: '/', component: Home },
+        { path: '/brands', component: Brands },
+        { path: '/contacts', component: Contacts },
+        { path: '/projects', component: Projects },
+        { path: '/blog', component: Blog },
+        { path: '/blog/post/:id', name: "post", component: Post },
+        { path: '*', redirect: "/" }
+    ]
+
+    const router = new VueRouter({
+        routes // сокращённая запись для `routes: routes`
+    })
+
+
+    new Vue({
+        el: "#app",
+        router,
+        data: {
+            posts: posts
+        }
+    });
+
+</script>
+
+</html>

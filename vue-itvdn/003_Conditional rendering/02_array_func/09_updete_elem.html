@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue.set функция</title>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script type="text/javascript">
+        window.onload=function(){
+        var sample = new Vue({
+            el: '#app',
+            data: {
+                auto: [
+           'Toyota',
+        'Honda',
+        'Volvo',
+        'Siat',
+        'BMV'
+                ],
+                newAuto: '',
+
+            },
+            methods: {
+                updateClick: function () {
+                    //На экземпляре объекта Vue вызываем метод SET для установки значений
+                    //Vue.set("какой объект(массив) нужно выбрать", "Какой элемент необходимо установить", "Значение элемента"
+                    Vue.set(this.auto, 2, 'Volvo VX35');
+                }
+            }
+        });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <br />
+        <p>Пример, показывающий использование функции экземпляра Vue <code>set</code> для обновления отдельных элементов массива.
+        </p>
+        <div id="app">
+            <form>
+                <ul class="list-unstyled">
+                    <li><strong>Автомобили: {{ auto.length }}</strong></li>
+                    <li v-for="i in auto">{{ i }}</li>
+                </ul>
+                
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <button type="button" class="btn btn-primary" v-on:click="updateClick">Обновить</button></li>
+             </ul>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

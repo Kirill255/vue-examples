@@ -1,0 +1,18 @@
+#search-form {
+    padding-left: 20%;
+    padding-right: 20%;
+    background-color: #363636;
+    min-height: 80px;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    transition: 1s cubic-bezier(.7,.28,.47,1.15) height;
+}
+
+#search-form input {
+    margin-right: 5px;
+}
+
+#search-form.has-searched {
+  height: 10vh;
+}

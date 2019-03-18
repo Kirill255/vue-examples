@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Динамическое изменение</title>
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        img {
+            width: 350px;
+            height: 250px;
+            margin-left: 75px;
+            border:1px solid grey
+        }
+
+        div img {
+            align-content: center;
+        }
+       a:hover {
+           background-color:#f5b4b4;
+           width:50px;
+           color:#4548dc;
+           text-decoration:none;
+           text-align:center;
+           font-weight:bold;
+       }
+    </style>
+</head>
+<body>
+    <div id="app" class="col-6 container table-bordered offset-3">
+        <header>
+            <nav class="row">
+                <a href="#" v-on:click="switchCar(item)" class="col-2 offset-1" v-for="item in elements">{{item}}</a>
+            </nav>
+        </header>
+        <component v-bind:is="current"></component>
+
+    </div>
+    <template id="bmw">
+        <div class="table-bordered">
+            <img src="auto_img/BMW.jpg" />
+        </div>
+    </template>
+    <template id="Ferrari">
+        <div><img src="auto_img/Ferrari.jpg" /></div>
+    </template>
+    <template id="Audi">
+        <div><img src="auto_img/Audi.jpg" /></div>
+    </template>
+    <template id="volvo">
+        <div><img src="auto_img/VOLVO.jpg" /></div>
+    </template>
+
+    <script>
+        Vue.component('', {
+
+        })
+        var sample = new Vue({
+            el: '#app',
+            data: {
+                current: 'audi',
+                elements: ["bmw", "Ferrari", "Audi", "volvo"]
+            },
+            components: {
+                bmw: { template: '#bmw' },
+                Ferrari: { template: '#Ferrari' },
+                Audi: { template: '#Audi' },
+                volvo: { template: '#volvo' }
+            },
+            methods: {
+                switchCar: function (car) {
+                    this.current = car;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

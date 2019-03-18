@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Динамические параметры</title>
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>
+            Динамическое изменение компонентов
+        </p>
+        <div id="app">
+            <br>
+            <!-- Передавать во входной парамент можно как массив так и объект -->
+            <component v-bind:message="parentMessage"></component>
+            <br />
+            <component v-bind:message="parentMessage.text"></component>
+            <br />
+            <component v-bind:message="parentMessage.arr[3]"></component>
+
+
+        </div>
+        <script>
+            Vue.component('component', {
+                props: ['message'],
+                template: '<span>{{ message }}</span>'
+            })
+            var sample = new Vue({
+                el: '#app',
+                data: {
+                    parentMessage: {
+                        text: "Hello world",
+                        isOnline: true,
+                        template: 2,
+                        arr: [2, 5, 4, true]
+
+                    }
+                }
+            })
+        </script>
+    </div>
+</body>
+</html>

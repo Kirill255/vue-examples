@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue component sample</title>
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="=container offset-2 col-8 table-bordered">
+        <br />
+        <p>Список заданий</p>
+        <div id="app">
+            <label class="input-group row">
+                <input v-model="newTodoText" class="input-group col-8 offset-1" placeholder="Добавьте задание"/>
+                <button v-on:click="addNewTodo" class="input-group btn-sm btn col-2 btn-success">Добавить</button>
+            </label>
+            <ul>
+                <todo-item v-for="(todo, index) in todos" v-bind:title="todo.title" v-on:remove="todos.splice(index, 1)"></todo-item>
+            </ul>
+        </div>
+
+        <script>
+            Vue.component('todo-item', {
+                template: '<li>{{ title }}<button style="margin-left:20px" v-on:click="$emit(\'remove\')">DEL</button></li>',
+                props: ['title']
+            })
+            new Vue({
+                el: '#app',
+                data: {
+                    newTodoText: '',
+                    todos: [
+                      {
+                          title: 'Вымыть посуду'
+                      },
+                      {
+                          title: 'Вынести мусор'
+                      },
+                      {
+                          title: 'Подстричь газон'
+                      }
+                    ],
+
+                },
+                methods: {
+                    addNewTodo: function (e) {
+                        if (this.newTodoText == '') {
+                            e.preventDefault();
+                            alert('Введите задание')
+                        }
+                        else {
+                            this.todos.push({
+                                title: this.newTodoText
+                            })
+                        }
+                        this.newTodoText = ''
+                    }
+                }
+            })
+        </script>
+    </div>
+</body>
+</html>

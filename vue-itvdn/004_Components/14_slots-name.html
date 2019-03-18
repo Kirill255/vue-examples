@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Вложенные шаблоны</title>
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+    </style>
+</head>
+<body>
+    <div id="app">
+
+        <app-layout>
+            <!--Слот с атрибутом имени получит весь контент,
+            находящийся в элементе с соответствующим значением атрибута slot.-->
+            <h1 slot="header">Здесь мог бы быть заголовок страницы</h1>
+            <p>Абзац основного контента.</p>
+            <p>И ещё один.</p>
+            <p slot="footer">Вот контактная информация</p>
+        </app-layout>
+    </div>
+    <script>
+        Vue.component('app-layout', {
+            template: '\
+<div class="container">\
+<header><slot name="header"></slot></header>\
+<p><slot></slot></p>\
+<footer><slot name="footer"></slot></footer>\
+</div>'
+        })
+
+        new Vue({
+            el: '#app',
+        })
+    </script>
+</body>
+</html>

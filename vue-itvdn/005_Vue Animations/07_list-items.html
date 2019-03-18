@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue animations</title>
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .list-item {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .list-enter-active, .list-leave-active {
+            transition: all 1s;
+        }
+        .list-enter, .list-leave-to {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <br />
+        <p>Пример анимации элементов списка</p>
+        <div id="app">
+            <button @click="add" class="btn btn-info">Добавить элемент</button>
+            <button @click="remove"  class="btn btn-danger">Удалить элемент</button>
+            <!-- tag - позволяет определить в каком элементе должен быть необходимый контент -->
+            <transition-group name="list" tag="p">
+                <span v-for="item in numbers" v-bind:key="item" class="list-item">
+                    {{ item }}
+                </span>
+            </transition-group>
+        </div>
+    </div>
+    <script>
+        var sample = new Vue({
+            el: '#app',
+            data: {
+                numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+                nextNumber: 10
+            },
+            methods: {
+                randomIndex: function () {
+                    return Math.floor(Math.random() * this.numbers.length)
+                },
+                add: function () {
+                    this.numbers.splice(this.randomIndex(), 0, this.nextNumber++)
+                },
+                remove: function () {
+                    this.numbers.splice(this.randomIndex(), 1)
+                },
+            }
+        })
+    </script>
+</body>
+</html>

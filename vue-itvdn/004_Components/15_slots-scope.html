@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Вложенные шаблоны</title>
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="parent container" >
+            <my-component>
+                <!--элемент template c атрибутом slot-scope, указывает на то, что он является
+        шаблоном для слота с ограниченной областью видимости.
+        Значение slot-scope будет использовано в качестве имени временной переменной,
+        содержащей входные параметры, переданные от потомка-->
+                <template slot-scope="props">
+                    <span>сообщение от родителя</span>
+                    <br />
+                    <span>{{ props.text }}</span>
+                </template>
+            </my-component>
+        </div>
+    </div>
+    <script>
+        Vue.component('my-component', {
+            template: '<div class="child"><slot text="сообщение от потомка"></slot></div>'
+        })
+
+        new Vue({
+            el: '#app',
+        })
+    </script>
+</body>
+</html>

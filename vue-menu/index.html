@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/vee-validate@latest"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vee-validate@2.1.0-beta.1/dist/locale/ru.js"></script> -->
+    <!-- <script src="https://nosir.github.io/cleave.js/dist/cleave.min.js"></script> -->
+    <!-- <script src="https://nosir.github.io/cleave.js/dist/cleave-phone.i18n.js"></script> -->
+
+    <script src="https://unpkg.com/vue"></script>
+
+    <style>
+    </style>
+</head>
+
+<body>
+    <!-- Блок на который действует vue -->
+    <div id="app">
+        <!-- @click.prevent - убираем стандартные действия -->
+        <!-- :class="active" с помощью этого тег nav получает класс, который будет равен переменной active -->
+        <nav @click.prevent :class="active">
+            <!-- при клике вызвать метод с переданным значением в скобках -->
+            <a href="#" class="home" @click="makeActive('home')">Главная</a>
+            <a href="#" class="projects" @click="makeActive('projects')">Проекты</a>
+            <a href="#" class="services" @click="makeActive('services')">Услуги</a>
+            <a href="#" class="contact" @click="makeActive('contact')">Контакты</a>
+        </nav>
+        <!-- Передать переменную active -->
+        <p>Выбран класс
+            <b>{{ active }}</b>
+        </p>
+        <div class="container">
+            <img :src=`img/${active}.jpg` alt="">
+            <div v-if="active === 'home'">
+                <h2>Home</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum autem tempore suscipit, optio alias tenetur.
+                    Odio perspiciatis magni eaque asperiores?</p>
+            </div>
+            <div v-if="active === 'projects'">
+                <h2>Projects</h2>
+                <p>Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться. Lorem Ipsum используют
+                    потому, что тот обеспечивает более или менее стандартное заполнение шаблона!</p>
+            </div>
+            <div v-if="active === 'services'">
+                <h2>Services</h2>
+                <p>Lorem Ipsum - это текст-"рыба", часто используемый в печати и вэб-дизайне. Lorem Ipsum является стандартной
+                    "рыбой" для текстов на латинице с начала XVI века. В то время некий безымянный печатник создал большую
+                    коллекцию размеров и форм шрифтов!</p>
+            </div>
+            <div v-if="active === 'contact'">
+                <h2>Contact</h2>
+                <p>Многие думают, что Lorem Ipsum - взятый с потолка псевдо-латинский набор слов, но это не совсем так. Его
+                    корни уходят в один фрагмент классической латыни 45 года н.э., то есть более двух тысячелетий назад!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Создать сущность Vue
+        var demo = new Vue({
+            el: "#app", // Элемент DOM в котором будет работать Vue
+            // переменные
+            data: {
+                active: 'home'
+            },
+            // функции(методы) которые будут вызваны
+            methods: {
+                // функция makeActive в которую передаем значение
+                makeActive: function (item) {
+                    this.active = item; // подставляем переданное значение в переменную active
+                }
+            }
+        });
+    </script>
+</body>
+
+
+
+</html>

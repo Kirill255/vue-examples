@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Модификатор Self</title>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var sample = new Vue({
+                el: '#app',
+                data: {
+                    history: ''
+                },
+                methods: {
+                    executeSearch: function () {
+                        this.history += 'Нажатие кнопки "Поиск".\n';
+                    },
+                    parentClick: function () {
+                        this.history += 'Нажатие родительского элемента кнопки "Поиск" .\n';
+                    },
+                    grandparentClick: function () {
+                        this.history += 'Нажатие прародительского элемента кнопки "Поиск".\n';
+                    }
+                }
+            });
+        }
+    </script>
+    <style>
+        form p+div {
+            padding:20px;
+            border:2px solid #ccbfbf;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="app">
+            <form class="form-horizontal">
+                <p>Пример, показывающий работу модификатора <code>self</code></p>
+                <!--  Self модификатор позволяет запускать вызывать элемент, только тот каторый был инициатором 
+                начала события. Событие будет продолжать подниматься вверх.-->
+
+                <div v-on:click="grandparentClick">
+                    <!-- Если определить модификатор у родительского элемента, то событие 
+                         parentClick не будет вызываться, так как инициатор события onClick - button-->
+                   <!-- <div class="input-group" v-on:click.self="parentClick">-->
+                        <div class="input-group" v-on:click="parentClick">
+                            <input v-model="search" type="text" class="form-control" placeholder="Ищем...">
+                            <button v-on:click.self="executeSearch" type="button" class="btn btn-primary">Поиск</button>
+                        </div>
+                    </div>
+                <br />
+                <div class="form-group">
+                    <label for="logTextarea">Журнал событий</label>
+                    <textarea class="form-control" v-model="history" rows="15"></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

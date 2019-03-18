@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <!-- https://github.com/freearhey/vue2-filters -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue2-filters/dist/vue2-filters.min.js"></script> -->
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- https://www.youtube.com/watch?v=xkABDzhJBDE&index=9&list=PL5r0NkdgM0UOxb4Hl81FV5UIgexwTf8h7 -->
+
+    <div id="app">
+        <!-- слушаем наше созданное событие "message-saved" на компоненте -->
+        <message @message-saved="handleMessage"></message>
+
+        <!-- выводим наш массив messages -->
+        <ul>
+            <li v-for="(message, index) in messages" :key="index">{{message}}</li>
+        </ul>
+    </div>
+
+
+</body>
+
+<script>
+
+
+    Vue.component('message', {
+        // при отправке сообщения вызываем метод самого компонента "saveMessage"
+        template: '<input v-model="message" @keyup.enter="saveMessage" autofocus>',
+        data: function () {
+            return {
+                message: ""
+            }
+        },
+        methods: {
+            saveMessage: function () {
+                console.log('this.message :', this.message);
+                // создаём собстенное событие, называем как хотим "message-saved"
+                // и вторым аргументом передаём наше сообщение
+                this.$emit("message-saved", this.message);
+                this.message = "";
+            }
+        }
+    });
+
+    new Vue({
+        el: "#app",
+        data: {
+            messages: []
+        },
+        methods: {
+            // при наступлении события "message-saved" вызывается наш метод
+            // заполняем массив
+            handleMessage: function (message) {
+                console.log('message received:', message);
+                this.messages.push(message);
+            }
+        }
+    });
+
+</script>
+
+</html>

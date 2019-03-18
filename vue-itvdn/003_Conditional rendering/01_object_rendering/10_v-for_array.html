@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>v-for директива</title>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var sample = new Vue({
+                el: '#app',
+                data: {
+                    links: [
+                        { number: 1, url: 'page=1', sections: ['A', 'B', 'C'] },
+                        { number: 2, url: 'page=2', sections: ['Y', 'Z', 'X'] }
+                    ]
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div id="app">
+            <form>
+                <p>
+                    Пример, показывающий использование директивы <code>v-for</code> для прохождения итерации через массив объектов.
+                </p>
+                <nav>
+                    <!-- Перебираем объекты - элементы массива -->
+                    <div v-for="(link, index) in links">
+                        <!-- Использование семантической привязки -->
+                        <strong>{{index+1}} Page</strong>
+                        <!-- Перебираем элементы массива, входящего в состав объекта -->
+                        <div v-for="section in link.sections">{{link.number}}-{{ section }}, {{link.url}}</div>
+                        <br />
+                    </div>
+                </nav>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

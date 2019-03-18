@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>v-for директива</title>
+   
+    <script type="text/javascript">
+        window.onload = function () {
+            var sample = new Vue({
+                el: '#app',
+                data: {
+                    user: {
+                        firstName: 'Homer',
+                        lastName: 'Simpson',
+                        age: 46,
+                        socialStatus: {
+                            worker: true,
+                            husband: true
+                        },
+                        children: ['Bart', 'Lisa', 'Maggie']
+                    }
+                }
+            });
+        }
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        <div id="app">
+            <form>
+                <p>Пример, показывающий применение <code>v-for</code> директивы для обхода свойств объекта</p>
+                <nav>
+                    <ul>
+                        <!-- С помощью значения index можно извлекать порядковый номер итерации 
+                            для цикла обхода свойств объекта.-->
+
+                        <li v-for="(value, key, index) in user">{{index+1}} {{key}}: {{ value }}</li>
+                    </ul>
+                </nav>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

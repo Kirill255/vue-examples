@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Декларативная привязка</title>
+    <script src="../../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var sample = new Vue({
+                el: '#appl',
+                data: {
+                    city: "Kiev"
+                }
+            });
+        }
+    </script>
+
+</head>
+
+<body>
+    <p>Декларативные привязки</p>
+    <!--Декларативные привязки - создаются с помощью директив. Директива - предопределенный элемент, сообщающий Vue.js какие действия
+        необходимо совершить с DOM. Директивы дают возможность мгновенно изменять DOM при изменении значений данных.
+        Встроенные директивы Vue.js начинаются с префикса 'v-'
+        -->
+
+    <div id="appl">
+        <p v-text="city"></p>
+    </div>
+    <script>
+        //var sample = new Vue({
+        //    el: '#appl',
+        //    data: {
+        //        city: "Kiev"
+        //    }
+        //});
+    </script>
+</body>
+</html>

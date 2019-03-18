@@ -1,0 +1,67 @@
+﻿<html>
+<head>
+    <title>Пример жизненного цикла представления</title>
+    <link href="../../TWbootstrap%204.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+
+            var sample = new Vue({
+                el: '#appl',
+                data: {
+                    counter: 0
+                },
+                methods: {
+                    updateClick: function () {
+                        this.counter = this.counter + 1;
+                    }
+                },
+                beforeCreate: function () {
+                    console.log('Начало создания');
+                },
+                created: function () {
+                    console.log('Создан экзмепляр');
+                },
+                beforeMount: function () {
+                    console.log('Начало подключения');
+                },
+                mounted: function () {
+                    console.log('Подключение завершено');
+                },
+                beforeUpdate: function () {
+                    console.log('Начало обновления');
+                },
+                updated: function () {
+                    console.log('Обновлен экземпляр');
+                },
+                beforeDestroy: function () {
+                    console.log('Начало удаления');
+                },
+                destroyed: function () {
+                    console.log('Удален экземляр');
+                }
+            });
+            document.getElementById('destroyClick').addEventListener('click', function () {
+                sample.$destroy();
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div id="appl">
+            <p>Загрузка данных в консоль</p>
+
+            Счетчик количества обновлений: <span>{{ counter }}</span>
+            <br />
+            <button class="btn btn-success" v-on:click="updateClick">Обновить</button>
+            <br />
+            <br />
+        </div>
+
+        <button id="destroyClick" class="btn btn-danger">Удалить цикл</button>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<head>
+    <title>Привязка v-html</title>
+    <script src="../../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+
+            var sample = new Vue({
+                el: '#appl',
+                data: {
+                    path: '<a href="http://itvdn.com">ITVDN</a>'
+
+                }
+            });
+        }
+    </script>
+
+</head>
+
+<body>
+    <p>Пример работы привязки <code>v-html</code></p>
+    <!--HTML - директива обновляет свойство innerHTML того элемента, к которому она привязана. -->
+    <div id="appl">
+        <h3>{{path}}</h3>
+        <!--<h3 v-html="path"></h3>-->
+    </div>
+
+
+</body>
+</html>

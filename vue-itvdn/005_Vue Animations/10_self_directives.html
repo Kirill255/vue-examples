@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Собственные директивы</title>
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <br />
+        <div id="app">
+            <input type="text" v-model.lazy="test" />
+            <div id="div" v-first="test"></div>
+        </div>
+    </div>
+    <script>
+        //Первый аргумент - название директивы,
+        //Второй - объект, содержащий точки жизненного цикла будущей директивы используя функцию обратного вызова
+        //Директива описывается в зависимости от жизненного цикла применения
+        Vue.directive("first", {
+            //Необязательные аргументы
+            bind: function () {
+                //Единожды когда первый раз привязываем наш элемент дом страинцы, используя данную пользовательскую директиву
+                console.log("Bind test directive");
+                console.log("DOM element is: " + el);
+
+            },
+                //Функция вызовется, если передаваемое значение будет изменено
+            update: function (newValue, oldValue) {
+                console.log(newValue, oldValue)
+            },
+                //Вызывается единожды когда мы удаляем нашу функцию из пользовательского элемента
+            unbind: function () {
+                console.log("UNBind test directive")
+            }
+        })
+        //sample.$destroy() - метод удаления экземпляра Vue со страницы
+        var sample = new Vue({
+            el: '#app',
+            data: {
+                test: ''
+            }
+        })
+
+    </script>
+</body>
+</html>

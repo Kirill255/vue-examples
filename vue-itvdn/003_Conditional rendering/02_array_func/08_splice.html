@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>splice метод</title>
+        <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="../vue.js"></script>
+        <script type="text/javascript">
+            window.onload = function () {
+                var sample = new Vue({
+                    el: '#app',
+                    data: {
+                        auto: [
+                   'Toyota',
+                'Honda',
+                'Volvo',
+                'Siat',
+                'BMV'
+                        ],
+                        newAuto: '',
+                    },
+                    methods: {
+                        spliceClick: function () {
+                            //Метод позволяет удалять, добавлять элементы в массив
+                            // Первый параметр - начало откуда начинать действие. Если присутствует только первый параметр - вырезка происходит начиная с данного индекса, и до конца массива
+                            // Второй - количество желаемых вырезанных элементов. Если параметр равен 0, это означает что мы не хотим удалять элементы.
+                            //Третий, в случае наличия - на что будем заменять
+                            var removed = this.auto.splice(1, 2);
+                            console.log(removed);
+                        }
+                    }
+                });
+            }
+                </script>
+                </head>
+                <body>
+                    <div class="container">
+                        <br />
+                        <p>Пример, показывающий действие метода <code>splice</code> на примере массива.
+                        </p>
+                        <div id="app">
+                            <form>
+                                <ul class="list-unstyled">
+                                    <li><strong>Все авто: {{ auto.length }}</strong></li>
+                                    <li v-for="i in auto">{{ i }}</li>
+                                </ul>
+                                <br />
+                                <ul class="list-inline">
+                                    <li class="list-inline-item"><button type="button" class="btn btn-primary" v-on:click="spliceClick">Вырезать</button></li>
+                                    </li>
+                            </form>
+                        </div>
+                    </div>
+    </body>
+</html>

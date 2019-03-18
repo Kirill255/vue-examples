@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"> -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="style.css">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/vee-validate@latest"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vee-validate@2.1.0-beta.1/dist/locale/ru.js"></script> -->
+    <!-- <script src="https://nosir.github.io/cleave.js/dist/cleave.min.js"></script> -->
+    <!-- <script src="https://nosir.github.io/cleave.js/dist/cleave-phone.i18n.js"></script> -->
+
+    <script src="https://unpkg.com/vue"></script>
+
+    <style>
+    </style>
+</head>
+
+
+<body>
+    <!-- https://github.com/andrewleykin/vuejs---tasks/blob/master/5task-layout/index.html -->
+
+    <!-- Блок на который действует vue -->
+    <!-- v-cloak скрывает нескомпилированные элементы, пока сущность Vue.js не готова. -->
+    <div id="app" v-cloak>
+        <!-- Переключатели -->
+        <div class="bar">
+            <!-- :class="{'active': layout === 'list'}" - добавляется класс active если переменная layout = list -->
+            <!-- @click.prevent="layout = 'list'" - при клике убрать стандартные действия и присвоить переменной layout значение list -->
+            <a href="#" class="list-icon" :class="{'active': layout === 'list'}" @click.prevent="layout = 'list'"></a>
+            <!-- :class="{'active': layout === 'grid'}" - добавляется класс active если переменная layout = grid -->
+            <!-- @click.prevent="layout = 'grid'" - при клике убрать стандартные действия и присвоить переменной layout значение grid -->
+            <a href="#" class="grid-icon" :class="{'active': layout === 'grid'}" @click.prevent="layout = 'grid'"></a>
+        </div>
+
+        <!-- список показывать если переменная layout = grid -->
+        <ul class="grid" v-if="layout === 'grid'">
+            <!-- Вывести все элементы articles (каждый элемент будет записан как "a") -->
+            <li v-for="a in articles">
+                <!-- :href="a.url" ссылка = значению a.url -->
+                <a :href="a.url" target="_blank">
+                    <!-- У картинки src = значению a.image.large -->
+                    <img :src="a.image.large">
+                </a>
+            </li>
+        </ul>
+
+        <!-- список показывать если переменная layout = list -->
+        <ul class="list" v-if="layout === 'list'">
+            <!-- Вывести все элементы articles (каждый элемент будет записан как "a") -->
+            <li v-for="a in articles">
+                <!-- :href="a.url" ссылка = значению a.url -->
+                <a :href="a.url" target="_blank">
+                    <!-- У картинки src = значению a.image.small -->
+                    <img :src="a.image.small">
+                    <!-- вместо квадратных скобок подставить значение a.title -->
+                    <p>{{a.title}}</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+
+
+        // Создать сущность Vue
+        var demo = new Vue({
+            el: "#app", // Элемент DOM в котором будет работать Vue
+            data: { // переменные
+                layout: "grid", // какой layout
+                // массив данных
+                articles: [
+                    {
+                        "title": "27 сайтов с задачками для оттачивания навыков программирования",
+                        "url": "https://proglib.io/p/27-puzzle-websites-to-sharpen-your-skills/",
+                        "image": {
+                            "large": "https://proglib.io/wp-content/uploads/2016/10/coding-time.jpg",
+                            "small": "https://proglib.io/wp-content/uploads/2016/10/coding-time-324x160.jpg"
+                        }
+                    },
+                    {
+                        "title": "Готовимся к собеседованию в Google: 8 месяцев непрерывной работы",
+                        "url": "https://proglib.io/p/8-month-for-google-interview/",
+                        "image": {
+                            "large": "https://proglib.io/wp-content/uploads/2017/01/0_b11a3_8ff3ef7b_XL.jpg",
+                            "small": "https://proglib.io/wp-content/uploads/2017/01/0_b11a3_8ff3ef7b_XL-324x160.jpg"
+                        }
+                    },
+                    {
+                        "title": "15 материалов по разработке игр",
+                        "url": "https://proglib.io/p/gamedev-compilation/",
+                        "image": {
+                            "large": "https://proglib.io/wp-content/uploads/2017/05/gamedev.png",
+                            "small": "https://proglib.io/wp-content/uploads/2017/05/gamedev-324x160.png"
+                        }
+                    },
+                    {
+                        "title": "Учебный план по осваиванию современного JavaScript",
+                        "url": "https://proglib.io/p/learning-modern-javascript/",
+                        "image": {
+                            "large": "https://proglib.io/wp-content/uploads/2016/12/1raWO3dhM4jMjf9VY-kZzNg.png",
+                            "small": "https://proglib.io/wp-content/uploads/2016/12/1raWO3dhM4jMjf9VY-kZzNg-324x160.png"
+                        }
+                    },
+                    {
+                        "title": "10 лучших видеокурсов для изучения Linux",
+                        "url": "https://proglib.io/p/linux-courses/",
+                        "image": {
+                            "large": "https://proglib.io/wp-content/uploads/2017/01/ruqlwta5wqy.jpg",
+                            "small": "https://proglib.io/wp-content/uploads/2017/01/ruqlwta5wqy-324x160.jpg"
+                        }
+                    },
+                    {
+                        "title": "Путь веб-разработчика в 2017",
+                        "url": "https://proglib.io/p/2017-web-developer-path/",
+                        "image": {
+                            "large": "https://proglib.io/wp-content/uploads/2017/05/img-web-development-1.jpg",
+                            "small": "https://proglib.io/wp-content/uploads/2017/05/img-web-development-1-324x160.jpg"
+                        }
+                    }
+                ]
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <!-- https://github.com/pagekit/vue-resource -->
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- https://www.youtube.com/watch?v=YZEm4dTnP80&index=13&list=PL5r0NkdgM0UOxb4Hl81FV5UIgexwTf8h7 -->
+
+    <div id="app">
+
+        <!-- для savePost() -->
+
+        <!-- <div class="editor">
+            <form action="" @submit.prevent="savePost()">
+                <input placeholder="Заголовок" type="text" v-model="post.title">
+                <textarea placeholder="Текст" v-model="post.body">
+                </textarea>
+                <button type=" submit ">Отправить</button>
+            </form>
+        </div> -->
+
+        <!-- для getAllPosts() или getSomePosts() -->
+
+        <div class="post " v-for="post in posts " :key="post.id ">
+            <span>{{ post.id }}</span>
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.body }}</p>
+        </div>
+
+        <!-- для getSinglePost() -->
+
+        <!-- <div class="post ">
+            <span>{{ post.id }}</span>
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.body }}</p>
+        </div> -->
+
+    </div>
+
+
+</body>
+
+<script>
+
+    new Vue({
+        el: "#app ",
+        data: {
+            // url: "https://jsonplaceholder.typicode.com/posts ",
+            posts: [],
+            post: {}
+        },
+        computed: {
+            resource: function () {
+                return this.$resource("https://jsonplaceholder.typicode.com/posts{/id}");
+            }
+        },
+        methods: {
+            getAllPosts: function () {
+                this.resource.get().then((response) => {
+                    console.log('response :', response);
+                    this.posts = response.data;
+                }, (error) => {
+                    console.error(error);
+                });
+            },
+            getSomePosts: function () {
+
+                // такой объект передаётся если использовать $http
+                // this.$http(this.url, options)
+                // var options = {
+                //     params: {
+                //         _start: 10,
+                //         _limit: 5
+                //     },
+                //     headers: {
+                //         'Content-Type': 'application/json'
+                //     }
+                // };
+
+                // если использовать $resource, то там немного другая сигнатура см. доку
+                // https://github.com/pagekit/vue-resource/blob/master/docs/resource.md
+                // кстате в доке вроде 4 параметра, но так не работает
+                // this.resource.get(null, params, null, options)
+                // ожидается 2 this.resource.get(params, options)
+                let params = {
+                    _start: 10,
+                    _limit: 5
+                };
+
+                let options = {
+                    headers: {
+                        "Content-Type ": "application/json "
+                    }
+                };
+
+                this.resource.get(params, options).then((response) => {
+                    console.log('response :', response);
+                    this.posts = response.data;
+                }, (error) => {
+                    console.error(error);
+                });
+            },
+            getSinglePost: function () {
+
+                this.resource.get({ id: 1 }).then(response => {
+                    this.post = response.data;
+                }, error => {
+                    console.error(error);
+                });
+            },
+            savePost: function () {
+                // также для url'а первым параметром можно передать id
+                // this.resource.save({ id: 1 }, this.post)
+
+                this.resource.save(this.post).then(response => {
+                    console.log("saved :", response);
+
+                }, error => {
+                    console.error("error :", error);
+                });
+            }
+        },
+        created() {
+            // раскомментировать нужный метод и нужный шаблон в #app
+            // this.getAllPosts();
+            this.getSomePosts();
+            // this.getSinglePost();
+        }
+    });
+
+</script>
+
+</html>

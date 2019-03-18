@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Использование фильтров</title>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script type="text/javascript">
+        window.onload=function() {
+        var sample = new Vue({
+            el: '#app',
+            data: {
+                auto: [
+           { model: 'Toyota', engine: '3.2 l' },
+           { model: 'Honda', engine: '2.4 l' },
+           { model: 'Volvo', engine: '3.0 l' },
+           { model: 'Siat', engine: '0.9 l' },
+           { model: 'BMV', engine: '1.9 l' }
+                ],
+            },
+            //Объект экземпляра Vue
+            filters: {
+                //Определение названия нового фильтра
+                convert: function (value) {
+                    if (!value) {
+                        return '';
+                    }
+                    value = value.replace(/\l/g, 'литров');               // Убирает букву 'l' и добавляет 'литров'
+                    return value.toUpperCase();                     // Преобразует в верхний регистр
+                }
+            }
+        });}
+    </script>
+</head>
+<body>
+    <div class="container">
+        <br />
+        <div id="app">
+            <form>
+                <p>
+                    Пример, показывающий работу фильтров.
+                </p>
+
+                <div v-for="car in auto">
+                    <div>{{ car.model }}</div>
+                    <!-- Используется фильтр преобразования -  | convert -->
+                    <span class="text-muted">Объем двигателя: {{ car.engine | convert }}</span>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

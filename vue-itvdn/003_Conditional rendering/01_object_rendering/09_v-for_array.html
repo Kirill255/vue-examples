@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>v-for директива</title>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var sample = new Vue({
+                el: '#app',
+                data: {
+                    links: [1, 2, 3, 4, 5]
+                },
+                methods: {
+                    search: function (pageNumber) {
+                        alert('Загружена ссылка № ' + pageNumber);
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <br />
+
+        <div id="app">
+            <form>
+                <p>
+                    Пример, показывающий использование директивы <code>v-for</code> для прохождения итерации через массив значений.
+                </p>
+                <nav>
+                    <ul class="pagination">
+                        <li v-for="link in links" class="page-item">
+                            <a href="#" v-on:click="search(link);" class="page-link">{{ link }}</a>
+                        </li>
+                    </ul>
+                </nav>
+            </form>
+        </div>
+    </div>
+
+
+</body>
+</html>

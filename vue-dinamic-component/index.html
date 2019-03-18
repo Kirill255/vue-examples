@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"> -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="style.css">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/vee-validate@latest"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vee-validate@2.1.0-beta.1/dist/locale/ru.js"></script> -->
+    <!-- <script src="https://nosir.github.io/cleave.js/dist/cleave.min.js"></script> -->
+    <!-- <script src="https://nosir.github.io/cleave.js/dist/cleave-phone.i18n.js"></script> -->
+
+    <script src="https://unpkg.com/vue"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.5"></script> -->
+
+    <style>
+    </style>
+</head>
+
+
+<body>
+    <!-- Шаблоны для компонентов vue -->
+    <template id="circles-template">
+        <div class="circles"></div>
+    </template>
+    <template id="triangle-template">
+        <div class="triangle"></div>
+    </template>
+    <template id="square-template">
+        <div class="square"></div>
+    </template>
+    <template id="egg-template">
+        <div class="egg"></div>
+    </template>
+
+    <!-- Блок на который действует vue -->
+    <!-- v-cloak скрывает нескомпилированные элементы, пока сущность Vue.js не готова. -->
+    <div id="app" v-cloak>
+        <header>
+            <nav>
+                <!-- при клике вызвать метод switchView -->
+                <!-- передать в него нужное значение -->
+                <a href="#" @click="switchView('circles')">Круг</a>
+                <a href="#" @click="switchView('triangle')">Треугольник</a>
+                <a href="#" @click="switchView('square')">Квадрат</a>
+                <a href="#" @click="switchView('egg')">Яйцо</a>
+            </nav>
+        </header>
+
+        <!-- Анимация с именем switch -->
+        <transition name="switch">
+            <!-- тег для компонентов -->
+            <!-- :is - имя компонента, который будет показан -->
+            <!-- currentView - переменная хранящая в себе название компонента -->
+            <component :is="currentView"></component>
+        </transition>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        // Создать сущность Vue
+        var demo = new Vue({
+            el: "#app", // Элемент DOM в котором будет работать Vue
+            data: { // переменные
+                currentView: 'circles' // видимый компонент
+            },
+            components: { // компоненты
+                circles: { // название
+                    template: '#circles-template' // шаблон
+                },
+                triangle: {
+                    template: '#triangle-template'
+                },
+                square: {
+                    template: '#square-template'
+                },
+                egg: {
+                    template: '#egg-template'
+                }
+            },
+            // функции ( методы ), вызываемые в vue
+            methods: {
+                switchView: function (view) { // смена видимого компонента
+                    // присвоить переменной currentView значение view
+                    this.currentView = view;
+                }
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

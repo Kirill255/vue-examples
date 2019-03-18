@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Привязка идентификатора</title>
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input ref="profile" type="text"/>
+        <input type="button" value="Показать" v-on:click="show"/>
+
+</div>
+    <script>       
+        var sample = new Vue({
+            el: "#app",
+            methods: {
+                show: function () {
+                    //$refs - Объект, с дочерними компонентами, имеющими параметр ref.
+                    alert(this.$refs.profile.value)
+                }
+            }
+        })
+       
+    </script>
+</body>
+</html>

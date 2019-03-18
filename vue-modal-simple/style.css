@@ -1,0 +1,143 @@
+body {
+    font-family: "Helvetica Neue", sans-serif;
+
+    margin: 0;
+    padding: 0;
+}
+
+#app {
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Dialog */
+.Dialog__overlay {
+    width: 100%;
+    height: 100%;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.Dialog__content {
+    width: 70%;
+    max-width: 250px;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 13;
+
+    background-color: white;
+    border-radius: 2px;
+    text-align: center;
+
+    transform: translate(-50%, -50%);
+}
+
+.Dialog__body {
+    font-size: 15px;
+    font-weight: 500;
+
+    padding: 20px;
+
+    color: #4a4a4a;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.Dialog__footer {
+    font-size: 15px;
+    line-height: 42px;
+
+    width: 100%;
+    height: 40px;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    position: relative;
+
+    white-space: nowrap;
+}
+
+.Dialog__footer:after {
+    width: 100%;
+    height: 1px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    border-top: 1px solid #d5d5d6;
+    color: #d5d5d6;
+    content: " ";
+
+    transform: scaleY(0.5);
+    transform-origin: 0 0;
+}
+
+.btn {
+    font-size: 1rem;
+    line-height: 30px;
+
+    padding: 0 15px;
+    width: 100%;
+    height: 32px;
+    height: 100%;
+
+    display: inline-block;
+    display: block;
+    flex: 1;
+
+    position: relative;
+
+    background-color: transparent;
+    border: none;
+    border-bottom-left-radius: 0;
+    border-left: 1px solid #d5d5d6 !important;
+    border-radius: 3px;
+    border-top-left-radius: 0;
+    color: #0179f1;
+    cursor: pointer;
+    outline: 0;
+    text-align: center;
+    text-decoration: none;
+
+/* vertical-align: middle; */
+
+    transition: box-shadow 0.1s ease-out,background-color 0.1s ease-out, border-color 0.1s ease-out, color 0.1s ease-out;
+}
+
+.btn-ok {
+    font-weight: 500;
+}
+
+.btn:active {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.btn:first-child {
+    border-bottom-left-radius: 2px;
+    border-left: none !important;
+}
+
+.link {
+    font-size: 16px;
+
+    margin-right: 5px;
+
+    display: inline-block;
+
+    border-bottom: 2px dotted;
+    color: #08c;
+    text-decoration: none;
+}
+

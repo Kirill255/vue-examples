@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue animations</title>
+
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="container">
+        <div id="app" class="table-bordered">
+            <br />
+            <transition>
+                <!--При переключении между элементами, использующими одноимённые теги,
+                 нужно указать Vue, что это различные элементы, установив уникальные значения атрибута key.
+                Иначе, компилятор Vue только поменяет содержимое элемента.-->
+                <button v-if="isEditing" key="save">
+                    Сохранить
+                </button>
+                <button v-else key="edit">
+                    Редактировать
+                </button>
+            </transition>
+        </div>
+
+        <script>
+            var sample = new Vue({
+                el: "#app",
+                data: {
+                    isEditing: false
+                },
+
+            })
+        </script>
+    </div>
+</body>
+</html>

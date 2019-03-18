@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>right mousedown</title>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var sample = new Vue({
+                el: '#app',
+                data: {
+                    history: ''
+                },
+                methods: {
+                    blockClick: function (e) {
+                        this.history += 'Была нажата клавиша мыши!\n';
+                        var button = 'Неизвестно';
+                        if (e.button === 0) {
+                            button = 'Левая';
+                        } else if (e.button === 1) {
+                            button = 'Средняя';
+                        } else if (e.button === 2) {
+                            button = 'Правая';
+                        }
+                        this.history += button + ' кнопка была нажата.\n---\n\n';
+                    },
+                    clearHistory: function () {
+                        this.history = '';
+                    }
+                }
+            });
+        }
+    </script>
+    <style>
+        .block {
+            border: 2px solid #808080;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="app">
+            <form>
+                <p>
+                    Пример, показывающий использование модификатора <code>right</code> на событии <code>onmousedown</code>.
+                </p>
+                <div class="form-group row">
+                    <div class="col-6">
+                        <!-- Без модификатора. Также срабатывает событие модификатора left по умолчанию  -->
+                        <div class="block text-center" v-on:mousedown="blockClick">
+                        Нажмите правую кнопку мыши внутри этого блока
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <!-- С модификатором. Срабатывает только модификатор right-->
+                        <div class="block text-center" v-on:mousedown.right="blockClick">
+                        Нажмите правую кнопку мыши внутри этого блока
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label for="logTextarea">Журнал событий (<a href="#" v-on:click="clearHistory">Очистить</a>)</label>
+                    <textarea class="form-control" v-model="history" rows="15"></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

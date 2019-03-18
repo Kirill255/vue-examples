@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>left mousedown</title>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script type="text/javascript">
+        window.onload=function(){
+        var sample = new Vue({
+            el: '#app',
+            data: {
+                history: ''
+            },
+            methods: {
+                blockClick: function (e) {
+                    this.history += 'Была нажата клавиша мыши!\n';
+                    var button = 'Неизвестно';
+                    if (e.button === 0) {
+                        button = 'Левая';
+                    } else if (e.button === 1) {
+                        button = 'Средняя';
+                    } else if (e.button === 2) {
+                        button = 'Правая';
+                    }
+                    this.history += button + ' кнопка была нажата.\n---\n\n';
+                },
+                clearHistory: function () {
+                    this.history = '';
+                }
+            }
+        });
+        }
+    </script>
+    <style>
+    .block {
+        border:2px solid #808080;
+        padding:10px;
+         }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div id="app">
+            <form>
+                <p>
+                    Пример, показывающий использование модификатора <code>left</code> на событии <code>onmousedown</code>.
+                </p>
+                <div class="col-12">
+                    <!-- Используем событие onmousedown для отображение ответа на нажатие элемента div-->
+                    <!-- Добавляем модификатор left на событие, который запускает функцию blockClick.-->
+                    <div class="block text-center" v-on:mousedown.left="blockClick">
+                        Нажмите левую кнопку мыши внутри этого блока
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label for="logTextarea">Журнал событий (<a href="#" v-on:click="clearHistory">Очистить</a>)</label>
+                    <textarea class="form-control" v-model="history" rows="15"></textarea>
+                </div>
+            </form>
+        </div>  
+    </div>
+</body>
+</html>

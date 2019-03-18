@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+
+    <!-- https://bootstrap-vue.js.org/docs -->
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css" />
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://unpkg.com/vue"></script>
+
+    <!-- https://bootstrap-vue.js.org/docs -->
+    <script src="https://unpkg.com/babel-polyfill@latest/dist/polyfill.min.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+
+    <style>
+    </style>
+</head>
+
+
+<body>
+    <!-- https://www.youtube.com/watch?v=8SeI7Vyfvcc&index=11&list=PLyeqauxei6jezJsOYzsxZFPv8OJe5fb6a -->
+
+    <div class="container">
+        <div id="app" v-cloak>
+            <h2>Cake builder</h2>
+            <hr>
+            <button type="button" class="btn btn-primary" @click="addLayer">Add layer</button>
+
+            <hr>
+            <div class="row">
+                <div class="col col-sm-6">
+                    <div class="cake">
+                        <div class="layer" :class="'layer-' + layer.type" :style="{height: layer.height * 10 + 'px'}" v-for="(layer, i) in layers"
+                            @click="changeHeight(i, 1)" @contextmenu.prevent="changeHeight(i, -1)">
+                            {{ layer.type }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col col-sm-6">
+                    <table class="table table-bordered" v-show="hasLayers">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Height</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(layer, index) in layers">
+                                <td>
+                                    <select name="" id="" class="form-control" v-model="layer.type">
+                                        <option :value="key" v-for="(ltype, key) in layersTypes">{{ ltype.label }}</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" v-model.number="layer.height">
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger" @click="deleteLayer(index)">—</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr>
+            <div class="alert alert-success price" v-show="hasLayers">
+                <span class="price"> {{ price }} руб.</span>
+                <button type="button" class="btn btn-warning" @click="orderCake">Order now!</button>
+            </div>
+
+            <!-- Попробовали подключить сторонний компонент из Bootstrap-vue -->
+            <b-modal title="Подтвердить заказ" v-model="confirmOrder" @ok="handleOk" cancel-variant="danger" ok-title="Заказать"
+                cancel-title="Отмена">Заказ на {{ price }} рублей.</b-modal>
+        </div>
+    </div>
+
+
+    </div>
+
+
+    <script type="text/javascript">
+
+
+        // Создать сущность Vue
+        var demo = new Vue({
+            el: "#app",
+            data: {
+                confirmOrder: false,
+                layers: [],
+                layersTypes: {
+                    biscuit: {
+                        price1sm: 50,
+                        label: "Бисквит"
+                    },
+                    baze: {
+                        price1sm: 100,
+                        label: "Безе"
+                    },
+                    curd: {
+                        price1sm: 60,
+                        label: "Творожный"
+                    }
+                },
+                defaultLayer: "biscuit",
+                defaultHeight: 4,
+            },
+            methods: {
+                addLayer() {
+                    this.layers.push({
+                        type: this.defaultLayer,
+                        height: this.defaultHeight
+                    });
+                },
+                changeHeight(i, height) {
+                    this.layers[i].height += height;
+                },
+                deleteLayer(index) {
+                    this.layers.splice(index, 1);
+                },
+                orderCake() {
+                    this.confirmOrder = true;
+                },
+                handleOk() {
+                    console.log("Заказ на сумму " + this.price + " рублей оформлен!");
+                    this.layers = [];
+                }
+            },
+            computed: {
+                price() {
+                    return this.layers.reduce((acc, layer) => {
+                        return acc + (layer.height * this.layersTypes[layer.type].price1sm);
+                    }, 0);
+                },
+                hasLayers() {
+                    return this.layers.length > 0;
+                }
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

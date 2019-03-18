@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Привязка к этементам Radio buttons</title>
+    <link href="../TWbootstrap%204.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var sample = new Vue({
+                el: '#app',
+                data: {
+                    selectedBeer: '',
+                    selectedCities: []
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div id="app">
+            <form>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <strong>Привязка к единичному выбору списка</strong>
+                        <br />
+
+                        <select v-model="selectedBeer" class="form-control">
+                            <option value="Obolon">Оболонь</option>
+                            <option value="Pilsner">Пилснер</option>
+                            <option value="Hike">Хайк</option>
+                            <option value="Carlsberg">Карлсберг</option>
+                        </select>
+                        <p class="text-muted">Выбранное пиво: {{ selectedBeer }}</p>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <strong>Привязка к множественному выбору списка</strong>
+                        <br />
+
+                        <select v-model="selectedCities" multiple class="form-control">
+                            <option value="Турция">Турция</option>
+                            <option value="Франция">Франция</option>
+                            <option value="Испания">Испания</option>
+                            <option value="Бразилия">Бразилия</option>
+                              <option value="Англия">Англия</option>
+                        </select>
+                        <small class="text-muted">В следующем году мы поедем в: {{ selectedCities }}</small>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

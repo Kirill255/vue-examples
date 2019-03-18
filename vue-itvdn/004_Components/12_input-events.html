@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Пользовательские события форм</title>
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+    </style>
+</head>
+<body>
+    <div class="container">
+        <br />
+        <div class="col-2" id="app">
+            <currency-input v-model="price"></currency-input>
+        </div>
+        <script>
+            Vue.component('currency-input', {
+                //Создание шаблона
+                // ref - название элемента или компонента для регистрации ссылки на него(установка идентификатора).
+                template: '<span class="input-group">$<input class="input-group" ref="input" v-bind:value="value" v-on:input="updateValue($event.target.value)"></span> ',
+                //Входящие свойства
+                props: ['value'],
+                //Методы данного компонента
+                methods: {
+                    // Вместо того, чтобы обновлять значение напрямую, в этом методе мы выполняем форматирование
+                    // введённого значения, а затем порождаем событие, уведомляющее родительский компонент об изменениях
+                    updateValue: function (value) {
+                        var formattedValue = value
+                          // Удалить пробелы с обеих сторон
+                          .trim()
+                          // Сократить до 2 знаков после запятой
+                          .slice(0, value.indexOf('.') === -1 ? value.length : value.indexOf('.') + 3)
+                        // Если значение не отформатированное — форматируем вручную
+                        if (formattedValue !== value) {
+                            this.$refs.input.value = formattedValue
+                        }
+                        // Порождаем событие с обновлённым значением поля ввода
+                        this.$emit('input', Number(formattedValue))
+                    }
+                }
+            })
+
+            var sample = new Vue({
+                el: '#app',
+                data: { price: '' }
+            })
+        </script>
+    </div>
+</body>
+</html>

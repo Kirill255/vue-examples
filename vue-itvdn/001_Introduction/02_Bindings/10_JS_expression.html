@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Выражения JS</title>
+    <script src="../../vue.js"></script>
+
+
+</head>
+
+<body>
+    <p>Пример применения стилей с помощью выражений JS</p>
+    <div id="appl">
+
+        <!--Динамически изменяя переменную flag, меняется использование определенного стиля элемента -->
+        <h1 v-text="userName" v-bind:style='{color:flag? "orange":"#000"}'></h1>
+
+
+    </div>
+    <script type="text/javascript">
+        var sample = new Vue({
+            el: '#appl',
+            data: {
+                userName: 'Homer',
+                flag: false
+            }
+        });
+    </script>
+</body>
+</html>

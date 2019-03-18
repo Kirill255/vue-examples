@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"> -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="style.css">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/vee-validate@latest"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vee-validate@2.1.0-beta.1/dist/locale/ru.js"></script> -->
+    <!-- <script src="https://nosir.github.io/cleave.js/dist/cleave.min.js"></script> -->
+    <!-- <script src="https://nosir.github.io/cleave.js/dist/cleave-phone.i18n.js"></script> -->
+
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.5"></script>
+
+    <style>
+    </style>
+</head>
+
+
+<body>
+    <!-- https://www.youtube.com/watch?v=HOmgDf2v3yI -->
+    <!-- Блок на который действует vue -->
+    <!-- v-cloak скрывает нескомпилированные элементы, пока сущность Vue.js не готова. -->
+    <div id="app" v-cloak>
+        <div class="topbar">
+            <!-- записать в фигурные скобки значение переменной callCounter -->
+            <h1>Бесконечная прокрутка - вызов {{callCounter}}</h1>
+        </div>
+        <!-- @scroll - при скролле вызывать метод onScroll  -->
+        <div class="list__wrapper" @scroll="onScroll">
+            <div class="list">
+                <!-- перебрать массив tweets записав в элементы tweet -->
+                <div class="list__item" v-for="tweet in tweets">
+                    <!-- записать в фигурные скобки значение переменной tweet.title -->
+                    <p>{{tweet.title}}</p>
+                    <!-- :src - атррибут src работает с vue -->
+                    <!-- подставить значение переменной tweet.thumbnailUrl -->
+                    <img :src="tweet.thumbnailUrl">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <script type="text/javascript">
+
+        // Создать сущность Vue
+        var demo = new Vue({
+            el: "#app", // Элемент DOM в котором будет работать Vue
+            data: { // переменные
+                tweets: [], // массив 
+                resourse_url: 'https://jsonplaceholder.typicode.com/photos/', // ссылка запроса
+                counter: 0, // счетчик
+                callCounter: 0, // счетчик вызовов
+                startTweets: 0, // начала отчета
+                maxTweets: 10, // максимально загрузить
+                loading: false // процесс загрузки
+            },
+            // функции(методы) которые будут использоваться
+            methods: {
+                // метод при скролле
+                onScroll: function (event) {
+                    // console.log('event :', event);
+                    // переменные
+                    var wrapper = event.target; // обертка
+                    var list = wrapper.firstElementChild; // прокручиваемый лист
+
+                    var scrollTop = wrapper.scrollTop; // высота прокрутки
+                    var wrapperHeight = wrapper.offsetHeight; // высота обертки
+                    var listHeight = list.offsetHeight; // высота списка
+
+                    // вычисляемая высота
+                    var diffHeight = listHeight - wrapperHeight;
+
+                    // если вычисляемая высота станет меньше или равна чем высота прокрутки и загрузка не идёт, то
+                    if (diffHeight <= scrollTop && !this.loading) {
+                        // увеличить счетчик на 10
+                        this.counter += 10;
+                        // вызвать метод load
+                        this.load();
+                    }
+                },
+                // загрузка
+                load: function () {
+                    // загрузка началася
+                    this.loading = true;
+                    // записать счетчик в переменную
+                    let counter = this.counter;
+                    // цикл for
+                    // начиная от startTweets и достигнув maxTweets
+                    // startTweets - старт отчета
+                    // maxTweets - макс. кол-во
+                    for (var i = this.startTweets; i < this.maxTweets; i++) {
+                        // увеличить counter на один
+                        counter++;
+                        // get запрос на jsonplaceholder, и функция then - выполнить тогда, когда получен ответ
+                        // response - положительный ответ
+                        // error - отрицательный ответ
+                        // this.resourse_url + counter - записанная ссылка + счетчик
+                        this.$http.get(this.resourse_url + counter).then(function (response) {
+                            // записать в переменную tweets - полученные ответ
+                            var tweets = response.body;
+
+                            // соединить массив tweets с массивом tweets
+                            this.tweets = this.tweets.concat(tweets);
+                            // загрузка окончена
+                            this.loading = false;
+                        }, function (error) {
+                            // вывести ошибку
+                            console.log(error);
+                            // загрузка окончена
+                            this.loading = false;
+                        });
+                    }
+                    // увеличить callCounter на один
+                    this.callCounter++;
+                    // увеличть startTweets на 10
+                    this.startTweets += 10;
+                    // увеличть maxTweets на 10
+                    this.maxTweets += 10;
+                }
+            },
+            // сделать при загрузке vue
+            created() {
+                // вызвать метод load
+                this.load();
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

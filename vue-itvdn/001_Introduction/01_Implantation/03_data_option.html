@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Создание объекта data</title>
+    <script src="../../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+
+            var sample = new Vue({
+                el: '#appl',
+                data: {
+                    path: 'itvdn.com'
+                }
+            });
+        }
+    </script>
+
+</head>
+<body>
+    <p>Пример показывающий использование объекта data</p>
+    <div id="appl">
+        <h2>Ссылка на учебный центр: {{path}}</h2>
+        <!--Вывод на экран объекта data-->
+        <h2>Ссылка на учебный центр: {{$data}}</h2>
+
+    </div>
+
+</body>
+</html>

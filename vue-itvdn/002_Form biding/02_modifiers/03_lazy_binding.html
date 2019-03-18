@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Пример использования ленивой привязки
+    </title>
+    <link href="../../TWbootstrap%204.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var sample = new Vue({
+                el: '#appl',
+                data: {
+                    lazy: ''
+
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <br />
+
+        <!--Ленивая привязка реагирует на событие onChange-->
+        <p>
+            Пример, показывающий поведений "ленивой" привязки.
+        </p>
+
+        <div id="appl">
+            <input v-model.lazy="lazy" placeholder="Поиск...">
+            <br />
+
+            <div>Ищем: {{ lazy }}</div>
+        </div>
+    </div>
+
+
+
+
+
+</body>
+</html>

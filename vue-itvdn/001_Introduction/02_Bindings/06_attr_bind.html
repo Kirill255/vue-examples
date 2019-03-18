@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Привязка атрибутов</title>
+    <script src="../../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var growler = new Vue({
+                el: '#appl',
+                data: {
+                    name: 'Alex',
+                    firstStyle: {
+                        color: 'blue',
+                        fontFamily: 'Verdana',
+                        textAlign: 'center',
+                        border: '2px solid red'
+                    },
+                 }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <p>Пример, показывающий работу привязки для элемента как атрибута</p>
+
+    <div id="appl">
+        <!--Привязка v-bind принимает значение аттрибута элемента h2-->
+        <h2 v-text="name" v-bind:style="firstStyle"></h2>
+        
+
+    </div>
+
+</body>
+</html>

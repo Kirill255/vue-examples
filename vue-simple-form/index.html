@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"> -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="style.css">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/vee-validate@latest"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vee-validate@2.1.0-beta.1/dist/locale/ru.js"></script> -->
+    <!-- <script src="https://nosir.github.io/cleave.js/dist/cleave.min.js"></script> -->
+    <!-- <script src="https://nosir.github.io/cleave.js/dist/cleave-phone.i18n.js"></script> -->
+
+    <script src="https://unpkg.com/vue"></script>
+
+    <style>
+    </style>
+</head>
+
+
+<body>
+    <!-- Блок на который действует vue -->
+    <!-- v-cloak скрывает нескомпилированные элементы, пока сущность Vue.js не готова. -->
+    <form id="app" v-cloak>
+        <h1>Услуги</h1>
+        <ul>
+            <!-- Перебор элементов сервиса -->
+            <!-- v-for - перебор "service in services" - в массиве services каждый элемент service -->
+            <!-- @click="toggleActive(service)" - при клике вызывать метод toggleActive и передать туда параметр service -->
+            <!-- :class="{'active': service.active}" - добавлять класс active если у service.active положение true -->
+            <li v-for="service in services" @click="toggleActive(service)" :class="{'active': service.active}">
+                <!-- {{ service.name }} - передать значение service.name -->
+                <!-- {{service.price | currency}} - передать значение service.price проведенное через фильтр currency -->
+                {{ service.name }}
+                <span>{{service.price | currency}}</span>
+            </li>
+        </ul>
+        <div class="total">
+            <!-- {{ total() | currency }} - вызвать метод total и потом провести его через фильтр currency -->
+            Итого
+            <span>{{ total | currency }}</span>
+        </div>
+        <button class="send" title="Смотри в консоль" type="button" @click.prevent="send">Заказать</button>
+    </form>
+
+
+    <script type="text/javascript">
+
+
+        Vue.filter('currency', function (val) {
+            return '$ ' + val.toFixed(2);
+        });
+
+        // Создать сущность Vue
+        var demo = new Vue({
+            el: "#app", // Элемент DOM в котором будет работать Vue
+            data: { // переменные
+                services: [ // массив данных
+                    {
+                        name: 'Веб разработка', // название
+                        price: 300, // цена
+                        active: true // положение активности
+                    }, {
+                        name: 'Дизайн',
+                        price: 400,
+                        active: false
+                    }, {
+                        name: 'Интеграция',
+                        price: 250,
+                        active: false
+                    }, {
+                        name: 'Обучение',
+                        price: 220,
+                        active: false
+                    }
+                ]
+            },
+            // функции(методы) которые будут использоваться
+            methods: {
+                toggleActive: function (s) { // изменить положение active
+                    // если true то сделать false, если false то сделать true
+                    s.active = !s.active;
+                },
+                send: function () {
+                    let order = this.services.filter(s => s.active);
+                    const json = JSON.stringify(order, null, 2);
+                    console.log("Ваш заказ: ", json);
+                }
+            },
+            computed: {
+                total: function () { // функция суммы
+                    let total = 0;
+
+                    // перебрать массив данных,
+                    this.services.forEach(function (s) {
+                        // если у элемента положение active - true то выполнить условие
+                        if (s.active) {
+                            total += s.price; // прибавить к сумме цену элемента
+                        }
+                    });
+
+                    return total; // вернуть сумму - число
+                }
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

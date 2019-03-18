@@ -1,0 +1,35 @@
+
+[v-cloak] {
+    display: none;
+}
+
+body {
+    font: 15px/1.3 "Open Sans", sans-serif;
+}
+
+.box__addTask {
+    margin: 20px 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+
+    list-style-type: none;
+}
+
+/* решил немного переделать обработку выполненности таска, с использованием навешивания класса,
+раньше навешивал с помощью слектора checked, сейчас же с использованием возможностей vue.js, так же это даёт возможность изменить html разметку, теперь необязательно чтобы checkbox находился перед label */
+/* input[type="checkbox"]:checked ~ label {
+    color: #5e5b64;
+    text-decoration: line-through;
+} */
+
+.strike {
+    color: #5e5b64;
+    text-decoration: line-through;
+}
+
+blockquote {
+    font-size: 12px;
+}

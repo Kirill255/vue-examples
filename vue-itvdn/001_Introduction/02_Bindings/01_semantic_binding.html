@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+            <title>Семантическая привязка</title>
+
+        <script src="../../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+
+            var sample = new Vue({
+                el: '#appl',
+                data: {
+                    name:'Anna'
+                }
+            });
+        }
+    </script>
+
+    </head>
+
+    <body>
+      <p>Пример работы cемантической привязки</p>
+        <!--Интерполяция - процесс перехода данных от привязки к значениям данных-->
+            <div id="appl">
+               <p>{{name}}</p>          
+            </div>     
+    </body>
+</html>

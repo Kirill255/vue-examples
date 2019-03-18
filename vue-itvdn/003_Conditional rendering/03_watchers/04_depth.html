@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>Свойство depth</title>
+        <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="../vue.js"></script>
+        <script type="text/javascript">
+            window.onload = function () {
+                var sample = new Vue({
+                    el: '#app',
+                    data: {
+                        telephones: [
+                               { name: 'Nokia 3', price: 400 },
+                               { name: 'iPhone 5s', price: 500 },
+                               { name: 'iPhone 6s', price: 600 },
+                               { name: "iPhone 7s", price: 1000 },
+                               { name: 'iPhone 8', price: 1800 },
+                               { name: 'iPhone X', price: 2200 },
+                               { name: 'HUAWEY P8', price: 350 },
+                               { name: 'SAMSUNG NOTE 8', price: 750 },
+                               { name: 'SAMSUNG GALAXY S8', price: 1300 },
+
+                        ],
+                        basket: {
+                            items: [],
+                            total: 0.00
+                        }
+                    },
+                    watch: {
+                        // Устанавливаем watcher за свойством basket, который является объектом
+                        basket: {
+                            //Для данного свойства установливаем обработчик, которому присваиваем функцию с двумя параметрами
+                            // текущим состоянием, и прошедшим.
+                            handler: function (latest, original) {
+                                this.updateTotal()
+                            },
+                            //Для наблюдаемого свойства устанавливаем свойство deep, со значением true.
+                            // Этот параметр разрешает Vue наблюдать за изменениями свойств, которые вложены в свойство basket
+                            deep:true
+                        }
+                    },
+                    created: function () {
+                        this.updateTotal();
+                    },
+                    methods: {
+                        updateTotal: function () {
+                            var length = this.basket.items.length;
+                            var t = 0;
+                            for (var i = 0; i < length; i++) {
+                                t += this.basket.items[i].price;
+                            }
+                            this.basket.total = t;
+                        },
+                        buy: function (tel) {
+                            this.basket.items.push(tel);
+                            console.log(this.basket.items)
+                        }
+                    }
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <br />
+            <div id="app"> 
+                <p>Пример, показывающий использование свойства watchers на наблюдаемым свойством объекта.</p>          
+              <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Модель</th>
+                            <th>Цена</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="tel in telephones">
+                            <td>{{ tel.name }}</td>
+                            <td>{{ tel.price }}$</td>
+                            <td><button class="btn btn-warning" v-on:click="buy(tel)">Купить</button></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="footer">Сумма:</td>
+                            <td class="footer">{{ basket.total }}$</td>
+                            <td class="footer"></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>     
+    </body>
+</html>

@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>right context</title>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+      var sample = new Vue({
+        el: '#app',
+        data: {
+            search: '',
+            history: '',
+            showContext: false,
+            top: '0px',
+            left: '0px'
+        },
+        methods: {
+            //Функция, определяющая положение контекстного меню, при нажатии на кнопку
+            blockClick: function (e) {
+                this.history += 'Была нажата клавиша мыши!\n';
+                var button = 'Неизвестно';
+                if (e.button === 0) {
+                    button = 'Левая';
+                } else if (e.button === 1) {
+                    button = 'Средняя';
+                } else if (e.button === 2) {
+                    button = 'Правая';
+                    this.showContext = true;
+                    this.top = e.y + 'px';
+                    this.left = e.x + 'px';
+                    console.log(e);
+                }
+                this.history += button + ' кнопка была нажата.\n---\n\n';
+            },
+            clearHistory: function () {
+                this.history = '';
+            },
+            closeContext: function () {
+                this.showContext = false;
+            },
+            copyClick: function () {
+                alert('Скопируйте текст');
+                this.closeContext();
+            },
+            pasteClick: function () {
+                alert('Вставте текст');
+                this.closeContext();
+            }
+        }
+    });
+        }
+    </script>
+    <style type="text/css">
+        .block {
+            border: 2px solid #808080;
+            padding: 10px;
+        }
+         .ul {
+            position: fixed;
+            background-color: lightgray;
+            padding: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="app">
+            <form>
+                <p>
+                    Пример, показывающий использование модификатора <code>right</code>.
+                </p>
+                <div class="form-group row">
+                    <div class="col-6">
+                        <!-- Событие onclick с модификатором right.-->
+                        <div class="block text-center" v-on:click.right="onBlockClick">
+                            Нажмите правую кнопку мыши внутри этого блока
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <!-- Событие oncontextmenu с модификатором right.-->
+                        <!-- contextmenu событие работает только с действиями правой кнопкой мыши -->
+                        <!-- В директиве  v-on на событии contextmenu используем модификатор prevent.
+                            В противном случае - будет вызываться стандартое действие-->
+                        <div class="block text-center" v-on:contextmenu.prevent="blockClick">
+                            Нажмите правую кнопку мыши внутри этого блока
+                        </div>
+                        <!--v-if директива принимает булевое значение -->
+                        <ul v-if="showContext" v-on:blur="closeContextMenu" class="ul list-unstyled" v-bind:style="{ top:top, left:left }">
+                            <li><a href="#" v-on:click="copyClick">Копировать</a></li>
+                            <li><a href="#" v-on:click="pasteClick">Вставить</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <br />
+                <div class="form-group">
+                    <label for="logTextarea">Журнал событий (<a href="#" v-on:click="clearHistory">Очистить</a>)</label>
+                    <textarea class="form-control" v-model="history" rows="15"></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

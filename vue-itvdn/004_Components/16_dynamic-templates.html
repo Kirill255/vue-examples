@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Асинхронные компоненты</title>
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+    </style>
+</head>
+<body>
+    <div class="container">
+        <br />
+        <div id="app">
+            <async-example></async-example>
+        </div>
+        <script>
+            // resolve — коллбэк, который вызывается после того, как определение компонента получено от сервера
+            Vue.component('async-example', function (resolve) {
+               setTimeout(function () {
+                    // Передаём шаблон компонента в параметр resolve
+                    resolve({
+                        template: '<div>Асинхронный запуск компонента</div>'
+                    })
+                }, 5000)
+            })
+            var sample = new Vue({
+                el: '#app',
+            })
+        </script>
+    </div>
+</body>
+</html>

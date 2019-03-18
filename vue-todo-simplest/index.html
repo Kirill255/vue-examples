@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="style.css">
+
+
+    <script src="https://unpkg.com/vue"></script>
+
+    <style>
+    </style>
+</head>
+
+
+<body>
+
+    <div id="app" v-cloak>
+        <blockquote>
+            <p>Если при перой загрузке страницы у вас неотображается начальный список, то проверьте localStorage в devtools
+                браузера, возможно там присвоено значение пустого массива с прошлого раза, ну или можете просто нажать на
+                кнопку "Reset" и обновите страницу
+                <button @click="clearStorage">Reset</button>
+            </p>
+            <p>Для сохранения редактируемого таска нажмите "Enter"</p>
+            <p>Для закрытия окна редактируемого таска без изменений нажмите кнопку "Close"</p>
+        </blockquote>
+        <hr>
+        <div class="box__addTask">
+            <input type="text" name="" id="" v-model="newTask">
+            <button @click="addTask">Add</button>
+        </div>
+        <ul>
+            <li v-for="(task, index) in tasks" :key="task.id">
+                <template v-if="!task.isEditing">
+                    <input :id="task.id" type="checkbox" @change="changeComplete(task.id)" :checked="task.isCompleted">
+                    <label :for="task.id" :class="{'strike': task.isCompleted}">{{ task.text }}</label>
+                </template>
+                <template v-else>
+                    <input type="text" :value="task.text" @keyup.enter="updateTask(task.id, $event)">
+                </template>
+                <button @click="editTask(task.id)">{{ task.isEditing ? "Close" : "Edit" }}</button>
+                <button @click="removeTask(task.id)">X</button>
+            </li>
+        </ul>
+
+    </div>
+
+
+    <script type="text/javascript">
+
+        var demo = new Vue({
+            el: "#app",
+            data: {
+                newTask: "",
+                // если при перой загрузке страницы у вас неотображается начальный список, то проверьте локалсторадж, возможно там присвоено значение пустого массива с прошлого раза
+                tasks: [
+                    {
+                        id: 1,
+                        text: 'Subscribe to channel',
+                        isCompleted: false,
+                        isEditing: false
+                    },
+                    {
+                        id: 2,
+                        text: 'Like the video',
+                        isCompleted: false,
+                        isEditing: false
+                    },
+                    {
+                        id: 3,
+                        text: 'Learn Vue.js',
+                        isCompleted: true,
+                        isEditing: false
+                    }
+                ]
+            },
+            mounted() {
+                this.getTasks();
+            },
+            // наблюдаем за нашим массивом тасков, и при изменении любого значения(добавляется новый таск или редактирован или изменён checked), записываем весь текущий список тасков в локалсторадж
+            watch: {
+                tasks: {
+                    handler: function (updatedList) {
+                        localStorage.setItem('tasks_list', JSON.stringify(updatedList));
+                    },
+                    deep: true
+                },
+            },
+            methods: {
+                // получить список тасков из локалсторадж, если он там есть, мы вызываем эту функцию в mounted()
+                getTasks() {
+                    if (localStorage.getItem('tasks_list')) {
+                        this.tasks = JSON.parse(localStorage.getItem('tasks_list'));
+                    }
+                },
+                // просто для удобства сделал кнопку сброса локалсторадж, хотя можно сбросить и через devtools браузера
+                clearStorage() {
+                    localStorage.clear();
+                },
+                // добавить новый таск
+                addTask() {
+                    if (this.newTask) {
+                        console.log('this.tasks.length :', this.tasks.length);
+                        this.tasks.push({
+                            id: Date.now(),
+                            text: this.newTask,
+                            isCompleted: false,
+                            isEditing: false
+                        });
+                    }
+                    this.newTask = "";
+                    return true;
+                },
+                // сохраняем значение checked при клике на чекбокс 
+                changeComplete(taskId) {
+                    this.tasks = this.tasks.map((task) => {
+                        if (task.id === taskId) {
+                            task.isCompleted = !task.isCompleted;
+                        }
+                        return task;
+                    });
+                },
+                // при клике на кнопку эдит, появляется инпут для редактирования
+                editTask(taskId) {
+                    this.tasks = this.tasks.map((task) => {
+                        if (task.id === taskId) {
+                            task.isEditing = !task.isEditing; // откроет окно редактирования
+                        }
+                        return task;
+                    });
+                },
+                // при нажатии на энтер сохраняется новое редактированное значение таска
+                updateTask(taskId, event) {
+                    this.tasks = this.tasks.map((task) => {
+                        if (task.id === taskId) {
+                            task.text = event.target.value; // присвоит новое значение
+                            task.isEditing = !task.isEditing; // закроет окно редактирования
+                        }
+                        return task;
+                    });
+                },
+                removeTask(task) {
+                    this.tasks = this.tasks.filter((task) => task.id !== taskId);
+                    // this.tasks.splice(this.tasks.indexOf(task), 1); // фильтр вроде работает быстрее, ну и если захочешь использовать splice(), поменяй в шаблоне task.id на просто task
+                },
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>События нажатия клавиши</title>
+    <link href="../../TWbootstrap%204.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script type="text/javascript">
+        window.onload = function () {
+            var findID = function (id) {
+                return document.getElementById(id)
+            }
+            findID('testInput').onkeydown = function () {
+                var log = '1. Тест: keydown';
+                updateLogs(log);
+            };
+            findID('testInput').onkeypress = function () {
+                var log = '2. Тест: keypress';
+                updateLogs(log);
+            };
+
+            findID('testInput').oninput = function () {
+                var log = '3. Тест: input';
+                updateLogs(log);
+            };
+            findID('testInput').onkeyup = function () {
+                var log = '4. Тест: keyup\n---\n';
+                updateLogs(log);
+            };
+            function updateLogs(newLog) {
+                var logs = findID('logTextarea').value;
+                logs += '\n' + newLog;
+                findID('logTextarea').value = logs;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <br />
+        <div id="app">
+            <form>
+                <p>Пример, показывающий порядок действия событий:
+                     <code>keydown</code>, <code>keypress</code>, <code>input</code>, and <code>keyup</code>. 
+                </p>
+
+                <div class="form-group">
+                    <label for="testInput">Введите текст</label>
+                    <input type="text" class="form-control" id="testInput" >
+                </div>
+
+                <div class="form-group">
+                    <label for="logTextarea">Журнал событий</label>
+                    <textarea class="form-control" id="logTextarea" rows="15"></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

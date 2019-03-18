@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <!-- https://github.com/freearhey/vue2-filters -->
+    <script src="https://cdn.jsdelivr.net/npm/vue2-filters/dist/vue2-filters.min.js"></script>
+    <!-- https://github.com/markedjs/marked -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- встроенные фильтры были убраны во vue2, но их можно подключить отдельной библиотекой
+     https://www.youtube.com/watch?v=vUra3hdhrR0&list=PL5r0NkdgM0UOxb4Hl81FV5UIgexwTf8h7&index=5 -->
+    <!-- как юзать фильтры вместе с v-html во vue2, вместо {{{}}} http://qaru.site/questions/719203/vue-js-text-highlight-filter -->
+
+    <div id="app">
+        <input v-model="search" type="text" autofocus>
+        <ul>
+            <!-- фильтр в массиве users по значению search, искать только в поле name -->
+            <li v-for="(user, index) in filterBy(users, search, 'name')" :key="index">
+                {{ user.name | uppercase }} {{ user.age }}
+            </li>
+        </ul>
+
+        <hr>
+
+        <!-- если нет нужно фильтра, можно написать свой, например напишем emoji -->
+        <p>Напишите: щенок и кот вместе весело играют в доме</p>
+        <textarea v-model="emojiText" cols="30" rows="10"></textarea>
+        <!-- мы специально используем тройные скобки {{{}}}, чтобы символы не экранировались -->
+        <div id="emoji" v-html="$options.filters.emoji(emojiText)"></div>
+
+        <hr>
+
+        <!-- если нет нужно фильтра, можно взять готовую функцию например для markdown -->
+        <p>Напишите в стиле markdown или скопируйте текст ниже
+            <pre>
+# Dillinger [![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid) Dillinger 
+``` { "firstName": "John", "lastName": "Smith", "age": 25 } ```
+            </pre>
+        </p>
+        <textarea v-model="markdownText" cols="30" rows="10"></textarea>
+        <!-- мы специально используем тройные скобки {{{}}}, чтобы символы не экранировались -->
+        <div id="markdown" v-html="$options.filters.marked(markdownText)"></div>
+    </div>
+
+</body>
+
+<script>
+    // http://www.iemoji.com/emoji-cheat-sheet/smileys-people
+    // пишем свою функцию для фильтра или глобально или в самом компоненте
+    Vue.filter('emoji', function (value) {
+        return value.replace('щенок', '&#128054;')
+            .replace('кот', '&#128008;')
+            .replace('доме', '&#127969;')
+            .replace('весело', '&#128539;')
+    });
+    // тут мы передаём уже готовую функцию marked, которую подключили выше
+    Vue.filter('marked', marked);
+
+    var demo = new Vue({
+        el: " #app ",
+        data: {
+            search: "",
+            users: [
+                {
+                    name: 'ИваН',
+                    age: 45
+                },
+                {
+                    name: 'Вика',
+                    age: 19
+                },
+                {
+                    name: 'Иван',
+                    age: 29
+                },
+                {
+                    name: 'Максим',
+                    age: 20
+                },
+                {
+                    name: 'Семен',
+                    age: 29
+                },
+                {
+                    name: 'Сергей',
+                    age: 45
+                }
+            ],
+            emojiText: "",
+            markdownText: ""
+        },
+        // filters: {
+        //     emoji: function (value) {
+        //         return value.replace('единорог', '&#129412;')
+        //             .replace('щенок', '&#128054;')
+        //             .replace('огне', '&#128293;')
+        //             .replace('грустно', '&#128546;')
+        //     }
+        // }
+    })
+
+</script>
+
+</html>

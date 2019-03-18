@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Атрибут is</title>
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        td {
+            padding: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <br />
+        <!-- Содержимое шаблона поступает в Vue только после того, как браузер распарсит и нормализует HTML-страницу.  -->
+        <table id="app" class="table-bordered table-hover">
+            <!--<my-component></my-component>-->
+            <!-- Используя атрибут is - позволяет принять выражение выбранного шаблона компонента  -->
+            <tr is="my-component"></tr>
+            <tr is="my-component"></tr>
+        </table>
+    </div>
+    <script>
+        Vue.component('my-component', {
+            template: "<tr><td>Hello</td><td>World</td></tr>"
+        })
+        var sample = new Vue({
+            el: '#app',
+
+        })
+    </script>
+
+</body>
+</html>

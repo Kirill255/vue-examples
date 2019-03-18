@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue animations</title>
+
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .component-fade-enter-active, .component-fade-leave-active {
+            transition: opacity .8s ease;
+        }
+        .component-fade-enter, .component-fade-leave-to {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <br />
+        <div id="app">
+            <input type="radio" name="rad" value="v-a" v-model='view' />A
+            <input type="radio" name="rad" value="v-b" v-model='view' />B
+            <input type="radio" name="rad" value="v-c" v-model='view' />C
+            <!--Для перехода между компонентами - нужно завернуть динамический компонент в transition-->
+            <transition name="component-fade" mode="out-in">
+                <component v-bind:is="view"></component>
+            </transition>
+        </div>
+    </div>
+    <script>
+        var sample = new Vue({
+            el: '#app',
+            data: {
+                view: ''
+            },
+            components: {
+                'v-a': {
+                    template: '<div>Компонент A</div>'
+                },
+                'v-b': {
+                    template: '<div>Компонент B</div>'
+                },
+                'v-c': {
+                    template: '<div>Компонент C</div>'
+                },
+            }
+        })
+    </script>
+</body>
+</html>

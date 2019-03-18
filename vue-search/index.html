@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"> -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="style.css">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script> -->
+    <!-- <script src="https://unpkg.com/vee-validate@latest"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vee-validate@2.1.0-beta.1/dist/locale/ru.js"></script> -->
+    <!-- <script src="https://nosir.github.io/cleave.js/dist/cleave.min.js"></script> -->
+    <!-- <script src="https://nosir.github.io/cleave.js/dist/cleave-phone.i18n.js"></script> -->
+
+    <script src="https://unpkg.com/vue"></script>
+
+    <style>
+    </style>
+</head>
+
+
+<body>
+    <!-- Блок на который действует vue -->
+    <!-- v-cloak скрывает нескомпилированные элементы, пока сущность Vue.js не готова. -->
+    <form id="app" v-cloak>
+        <div class="bar">
+            <!-- v-model - связать значение переменной searchString с input -->
+            <input type="text" placeholder="Введите название статьи" v-model="searchString" ref="inputSearch">
+            <span v-if="searchString" @click="reset" class="closeBtn">X</span>
+        </div>
+        <ul>
+            <!-- Перебрать массив из считаемой функции filteredArticles, article - каждый элемент -->
+            <li v-for="article in filteredArticles">
+                <!-- :href - href, который работает с vue -->
+                <!-- article.url - ссылка элемента  article-->
+                <a :href="article.url">
+                    <!-- :src - href, который работает с vue -->
+                    <!-- article.image - картинка элемента article -->
+                    <img :src="article.image">
+                    <!-- подставить вместо фигурных скобок, значение article.title - заголовок элемента article -->
+                    <p>{{article.title}}</p>
+                </a>
+            </li>
+        </ul>
+    </form>
+
+
+    <script type="text/javascript">
+
+
+        // Создать сущность Vue
+        var demo = new Vue({
+            el: "#app", // Элемент DOM в котором будет работать Vue
+            data: { // переменные
+                searchString: "", // строка поиска
+                articles: [ // массив данных
+                    {
+                        "title": "27 сайтов с задачками для оттачивания навыков программирования",
+                        "url": "https://proglib.io/p/27-puzzle-websites-to-sharpen-your-skills/",
+                        "image": "https://proglib.io/wp-content/uploads/2016/10/coding-time-100x70.jpg"
+                    },
+                    {
+                        "title": "Готовимся к собеседованию в Google: 8 месяцев непрерывной работы",
+                        "url": "https://proglib.io/p/8-month-for-google-interview/",
+                        "image": "https://proglib.io/wp-content/uploads/2017/01/0_b11a3_8ff3ef7b_XL-100x70.jpg"
+                    },
+                    {
+                        "title": "15 материалов по разработке игр",
+                        "url": "https://proglib.io/p/gamedev-compilation/",
+                        "image": "https://proglib.io/wp-content/uploads/2017/05/gamedev-100x70.png"
+                    },
+                    {
+                        "title": "10 лучших видеокурсов для изучения Linux",
+                        "url": "https://proglib.io/p/linux-courses/",
+                        "image": "https://proglib.io/wp-content/uploads/2017/01/ruqlwta5wqy-100x70.jpg"
+                    },
+                    {
+                        "title": "Учебный план по осваиванию современного JavaScript",
+                        "url": "https://proglib.io/p/learning-modern-javascript/",
+                        "image": "https://proglib.io/wp-content/uploads/2016/12/1raWO3dhM4jMjf9VY-kZzNg-100x70.png"
+                    }
+                ]
+            },
+            mounted: function () {
+                this.$nextTick(function () {
+                    this.$refs.inputSearch.focus();
+                });
+            },
+            methods: {
+                reset: function () {
+                    this.searchString = "";
+                    this.$refs.inputSearch.focus();
+                }
+            },
+            // вычисляемые свойства
+            computed: {
+                // фильтрованные посты
+                filteredArticles: function () {
+                    // переменные
+                    let articles__array = this.articles, // все посты
+                        searchString = this.searchString; // строка поиска
+
+                    // если строка поиска пуста то вернуть все посты
+                    if (!searchString) {
+                        return articles__array;
+                    }
+
+                    // обработать строку поиска, и записать её в эту же переменную
+                    // .trim() - удалить пробелы
+                    // .toLowerCase() - привести к прописному виду
+                    searchString = searchString.trim().toLowerCase();
+
+                    // отфильтровать массив, и записать его в эту же переменную
+                    // .filter(function(){}); - фильтр
+                    // item - входящий параметр
+                    articles__array = articles__array.filter(function (item) {
+                        //  если заголовок соответствует строке поиска то
+                        if (item.title.toLowerCase().indexOf(searchString) !== -1) {
+                            // вернуть этот элемент массива
+                            return item;
+                        }
+                    });
+
+                    // вернуть полученный массив данных
+                    return articles__array;
+                }
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

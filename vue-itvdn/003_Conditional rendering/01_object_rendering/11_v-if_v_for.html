@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <title>v-for & v-if директивы</title>
+        <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="../vue.js"></script>
+        <script type="text/javascript">
+            window.onload = function () {
+                var sample = new Vue({
+                    el: '#app',
+                    data: {
+                        beers: [
+                            { name: 'Hieneken', alk: 9.6 },
+                            { name: 'Carlsberg', alk: 7.4 },
+                            { name: 'Porter', alk: 6.5 },
+                            { name: 'Hike', alk: 5.4 },
+                            { name: 'Pilsner', alk: 3.7 },
+                            { name:'Korona',alk:1.8}
+                        ],
+                        maxAlk: 4.0
+                    }
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <br />
+            <p>
+                Пример, показывающий использование директив <code>v-for</code> и <code>v-if</code> вместе.
+           </p>
+             <div id="app">
+                <form>
+                    <div class="form-group">
+                        <label><strong>Максимальное количество оборотов алкоголя</strong></label>
+                        <!-- С помощью двунаправленной привязки подключатся к элементу input -->
+                        <p><input type="range" class="form-control" min="0" max="10" v-model="maxAlk" /></p>
+                        <span class="text-muted">{{ maxAlk }}%</span>
+                    </div>                    
+                    <ul class="list-unstyled">
+                        <li><strong>Пиво:</strong></li>
+                        <!-- Используем директиву v-for для перебора значений массива.
+                            v-if -для создания условия визуализации на странице. 
+                            Приоритет отдаётся директиве v-for-->
+                        <li v-if="beer.alk < maxAlk" v-for="beer in beers">{{ beer.name }}: {{beer.alk}}%</li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

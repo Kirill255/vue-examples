@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>computed property</title>
+
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script>
+        window.onload = function () {
+            var sample = new Vue({
+                el: "#app",
+                data: {
+                    message: ''
+                },
+                computed: {
+                    //Вычисляемое свойство. Зависит от значения message.
+                    //Функция, используемая как getter (получатель) свойства reverseMessage
+                    reverseMessage: function () {
+                        return this.message.split('').reverse().join('')
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <br />
+        <div id="app">
+            <input type="text" v-model="message" />
+            <p>{{message}}</p>
+            <p>{{reverseMessage}}</p>
+        </div>
+    </div>
+</body>
+</html>

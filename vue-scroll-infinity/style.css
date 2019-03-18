@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#app {
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.topbar {
+    margin-bottom: 20px;
+}
+
+.list__wrapper {
+    width: 240px;
+    height: 400px;
+
+/* overflow: scroll; */
+
+    overflow: auto;
+
+    background: lightgreen;
+}
+
+.list {
+    margin: 0;
+    padding: 0;
+}
+
+.list__item {
+    padding-bottom: 15px;
+    min-height: 65px;
+
+    border: 1px solid green;
+}
+
+.list__item p {
+    text-align: center;
+}
+
+.list__item img {
+    margin: 0 auto;
+
+    display: block;
+}

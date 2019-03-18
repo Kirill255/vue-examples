@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Собственные директивы</title>
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+    </style>
+</head>
+<body>
+    <div class="container">
+        <br />
+        <div id="app">
+            <div class="input-group row">
+                <label class="input-group">
+                    Вариант1
+                    <input v-model.lazy="funct.color" class="input-group" type="color" />
+                </label>
+            </div>
+            <div class="input-group row">
+                <label class="input-group">
+                    Вариант2
+                    <input class="input-group" v-focus type="text" />
+                </label>
+            </div>
+            <div class="input-group row">
+                <label class="input-group">
+                    Вариант3
+                    <input v-model.lazy="funct.text" class="input-group" type="text" />
+                </label>
+            </div>
+            <div v-demo="funct">Color: {{funct.color}} + Text: {{funct.text}}</div>
+        </div>
+    </div>
+    <script>
+
+        Vue.directive('focus', {
+
+            inserted: function (arg) {
+
+                arg.focus()
+            }
+        })
+        Vue.directive('demo', function (el, binding) {
+            console.log(binding.value.color)
+            console.log(binding.value.text)
+
+
+        })
+        var sample = new Vue({
+            el: '#app',
+            data: {
+                funct: {
+                    color: '',
+                    text: '',
+                }
+            }
+        })
+
+    </script>
+</body>
+</html>

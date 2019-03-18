@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Vue component</title>
+    <script src="../vue.js"></script>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div id="app" class="col-6 offset-1">
+            <!--Экземпляр компонента new-item должен быть прописан всегда в теле объекта  -->
+            <new-item></new-item>
+            <new-item></new-item>
+        </div>
+        <!-- Объект не увидит данный компонент -->
+        <new-item></new-item>
+
+        <script>
+            //Создание нового компонента VUE
+            //Компонент обязательно должен быть зарегистрирован до создания корневого экземпляра Vue.
+            Vue.component('new-item', {
+                template: '<p>Новый параграф</p>'
+            })
+            //Создание корневого экземпляра Vue
+            var sample = new Vue({
+                el: "#app"
+
+            })
+
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Обработчик событий</title>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var sample = new Vue({
+                el: '#app',
+                data: {
+                    search: ''
+                },
+                //Объект экземпляра Vue, содержащий функции и поведения
+                methods: {
+                    onSearch: function (v, e) {
+                        var mess = 'Обращение: ' + v + '\n' +
+                            'Запрос: ' + this.search + '\n' +
+                            'Кнопка: ' + e.target.innerText
+                        ;
+                        alert(mess);
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <p>Пример, показывающий применение параметров функции обработчика события</p>
+        <div id="app">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input v-model="search" type="search" class="form-control" placeholder="Введите сюда любой запрос">
+                        <!--onSearch('user', $event) -функция, срабатывающая при нажатии на кнопку. Принимает параметры:
+                                'user' - параметр обращения. Может принимать значение- число, булевое, строка, объект.
+                                $event - параметр события. Зарезервированный в библиотеке Vue.js. Этот параметр дает доступ
+                                к тому событию DOM части, которое было запущено.   -->
+                        <button v-on:click="onSearch('user', $event)" type="button" class="btn btn-primary">Поиск</button>
+ <!--                   <button @click="onSearch(new Date(), $event)" type="button" class="btn btn-primary">Поиск</button>-->
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+#message {
+    color: #ddd;
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+#timer {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+    font-size: 200px;
+    line-height: 1;
+    margin-bottom: 40px;
+}

@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Обработчик событий</title>
+    <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+
+            var sample = new Vue({
+                el: '#app',
+                data: {
+                    search: ''
+                },
+                //Объект экземпляра Vue, содержащий функции и поведения
+                methods: {
+                    onSearch: function () {
+                        //Используем ключевое слово this
+                        alert('Вы искали: "' + this.search + '"');
+                    }
+                }
+            });
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="container">
+        <p>Простой пример, показывающий привязку на событие.</p>
+
+        <div id="app">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <div class="input-group">
+                        <!--Используя JS мы бы написали:
+                        <button onclick="onSearch" type="button" class="btn btn-primary">Поиск</button>
+                         v-on - директива используется для привязки к обработчику событий.
+                            После : (двоеточия) мы определяем на какое именно событие будет привязана директива.
+                             onSearch - имя функции, определенной в свойстве methods, объекта Vue -->
+                        <input v-model="search" type="search" class="form-control" placeholder="Ищем...">
+                        <button v-on:click="onSearch" type="button" class="btn btn-primary">Поиск</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>

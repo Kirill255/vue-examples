@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Привязка к нескольким checkbox</title>
+    <link href="../TWbootstrap%204.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script type="text/javascript">
+        window, onload = function () {
+
+            var sample = new Vue({
+                el: '#app',
+                data: {
+                    // В массив будут записаны все значения с элементов checkbox
+                    searchMashines: []
+                }
+            });
+        }
+    </script>
+</head>
+    <style>
+        form div {padding-left:20px;}
+    </style>
+<body>
+    <div class="container">
+        <br />
+        <p>
+            Пример, показывающий привязку к нескольким полям <code>input</code> с типом <code>Checkbox</code>
+        </p>
+
+        <div id="app">
+                <form>
+                    <div class="form-check row" >
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" value="Авто" v-model="searchMashines">
+                            Авто
+                        </label>
+                    </div>
+                    <div class="form-check row" >
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" value="Самолет" v-model="searchMashines">
+                            Самолет
+                        </label>
+                    </div>
+                     <div class="form-check row" >
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" value="Корабль" v-model="searchMashines">
+                            Корабль
+                        </label>
+                    </div>
+
+                    <small class="text-muted">Выбрано: {{ searchMashines }}</small> 
+                </form>
+            </div>
+    </div>
+
+
+
+
+</body>
+</html>

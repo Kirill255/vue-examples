@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>v-cloak директива</title>
+    <link href="../../TWbootstrap%204.0.0/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="../vue.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            //Намеренное задержка загрузки экземпляра Vue
+            setTimeout(initializeVue, 3000);
+            function initializeVue() {
+                var sample = new Vue({
+                    el: '#app',
+                    data: {
+                        history: ''
+                    },
+                    //Свойство объекта Vue. Позволяет добавлять код на любом этапе жизненного цикла
+                    //Данное свойство используется для для выполнения кода, после завершения загрузки
+                    created: function () {
+                        this.history = 'Загрузка экземпляра Vue завершена!';
+                    }
+                });
+            }
+
+        }
+    </script>
+    <style type="text/css">
+        [v-cloak] {
+            display: none;
+        }
+
+        .block {
+            border: 1px solid #000;
+            padding: 10px;
+            height: 100px;
+        }
+
+        form {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <br />
+        <div id="app">
+            <form>
+                <!-- Директива  v-cloak прячет элемент до тех пор, пока объект Vue пока не произошла операция выполнения представления-->
+                <p>Пример показывающий применение директивы <code>v-cloak</code>.</p>
+                <div class="form-group row">
+                    <div class="col-6">
+                        <label for="logTextarea">Журнал событий (без директивы <code>v-cloak</code>)</label>
+                        <div class="block">
+                            <div>{{ history }}</div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <label for="logTextarea">Журнал событий (с директивой <code>v-cloak</code>)</label>
+                        <div class="block">
+                            <div v-cloak>{{ history }}</div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

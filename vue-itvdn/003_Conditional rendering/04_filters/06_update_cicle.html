@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+      <title>Жизненный цикл изменения</title>
+
+         <link href="../../TWbootstrap 4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+
+      </head>
+
+    <body>
+        <div class="container">
+            <br />
+            <div id="app">            
+              
+               Введите число: <input v-model="num" type="number"/>
+
+                <div>{{ getIndex | formatted }} Значение: {{ num }}</div>
+            </div>
+        </div>
+        <script src="../vue.js"></script>
+        <script type="text/javascript">
+            var growler = new Vue({
+                el: '#app',
+                data: {
+                    num: 1
+                },
+                watch: {
+                    num: function() {
+                        console.log('Watcher');
+                    }                    
+                },
+                computed: {
+                    getIndex: function() {
+                        console.log('Вычисляемое свойство');
+                        return this.num - 1;
+                    }
+                },
+                filters: {
+                    formatted: function(val) {
+                        console.log('Фильтр');
+                        return 'Индекс: ' + val;
+                    }
+                },
+                beforeCreate: function() {
+                    console.log('Начало создания');
+                },
+                created: function() {
+                    console.log('Создание');                    
+                },
+                beforeMount: function() {
+                    console.log('Начало подключения');                    
+                },
+                mounted: function() {
+                    console.log('Подключение');                    
+                },
+                beforeUpdate: function() {
+                    console.log('Начало обновления');
+                },
+                updated: function() {
+                    console.log('Обновление');
+                },
+                beforeDestroy: function() {
+                    console.log('Начало удаления');
+                },
+                destroyed: function() {
+                    console.log('Удаление');
+                }                
+            });        
+        </script>
+    </body>
+</html>
